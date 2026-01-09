@@ -25,16 +25,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
       border-top: 7px solid #0f4c81;
     }
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      object-fit: contain;
-      border: 2px solid #0f4c81;
-      margin-bottom: 12px;
-      background: #fff;
-      padding: 6px;
-    }
     h1 {
       margin: 8px 0 4px;
       font-size: 20px;
@@ -53,13 +43,22 @@
       color: #ffffff;
       padding: 14px 12px;
       border-radius: 8px;
-      margin-bottom: 12px;
+      /* Margin bawah dikurangi agar dekat dengan deskripsi */
+      margin-bottom: 6px; 
       font-weight: 600;
       font-size: 14px;
       transition: background 0.2s ease;
     }
     a.button:hover {
       background: #0b3a63;
+    }
+    /* Style baru untuk keterangan */
+    .desc {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 16px;
+      line-height: 1.4;
+      padding: 0 10px;
     }
     footer {
       margin-top: 18px;
@@ -75,15 +74,26 @@
     <h2>Kabupaten Mojokerto</h2>
     
     <a href="https://wa.me/6282264944401" class="button">Helpdesk Tata Lingkungan</a>
+    <div class="desc">Layanan konsultasi dokumen perizinan lingkungan (SPPL, UKL-UPL, AMDAL)</div>
+
     <a href="https://wa.me/6281259065456" class="button">Helpdesk Persampahan</a>
+    <div class="desc">Layanan angkutan sampah, retribusi, dan persampahan</div>
+
     <a href="https://wa.me/6282336742595" class="button">Helpdesk Penaatan</a>
+    <div class="desc">Pengaduan teknis, pengawasan, dan sanksi lingkungan hidup</div>
+
     <a href="https://wa.me/62811315451" class="button">Helpdesk UPTD Laboratorium Lingkungan</a>
+    <div class="desc">Pendaftaran uji laboratorium air, udara, dan limbah</div>
+
     <a href="mailto:blhkabupatenmojokerto@gmail.com" class="button">Email Milik DLH</a>
+
     <a href="https://docs.google.com/forms/d/16u9KU4TMPEUmEiHCcFXX49wwqsrz_4JgXiRADPALzHw/viewform?edit_requested=true" class="button">Pelaporan / Aduan</a>
-    <a href="https://maps.app.goo.gl/mRhgvi4bXbyTUG2M8" class="button">Lokasi Dinas Lingkungan Hidup Kabupaten Mojokerto</a>
+    <div class="desc">Formulir online pelaporan pencemaran lingkungan</div>
+
+    <a href="https://maps.app.goo.gl/mRhgvi4bXbyTUG2M8" class="button">Lokasi Dinas Lingkungan Hidup</a>
 
     <footer>
-      © 2025 Dinas Lingkungan Hidup
+      © 2026 Dinas Lingkungan Hidup
     </footer>
   </div>
 </body>
