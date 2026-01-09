@@ -7,16 +7,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
-      --primary-color: #0f4c81;
-      --accent-color: #2ecc71;
-      --bg-gradient: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      --wa-green: #25D366;
+      --wa-dark: #128C7E;
+      --dlh-blue: #0f4c81;
+      --danger: #e74c3c;
+      --dark: #2d3436;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg-gradient);
-      color: #2d3436;
+      background: #f0f2f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,104 +26,105 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 40px 30px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 40px 25px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
 
     .logo-area img {
-      width: 100px;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      width: 90px;
       margin-bottom: 15px;
     }
 
     h1 {
       margin: 0;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
-      color: var(--primary-color);
-      letter-spacing: -0.5px;
+      color: var(--dlh-blue);
     }
 
     h2 {
       margin: 5px 0 30px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: #636e72;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
-    .menu-wrapper {
+    /* Styling Card Button */
+    .card-btn {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .nav-item {
+      align-items: center;
       text-decoration: none;
+      padding: 15px 20px;
+      border-radius: 16px;
+      margin-bottom: 12px;
       transition: all 0.3s ease;
+      text-align: left;
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
-    .button {
+    .card-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .icon-box {
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--primary-color);
-      color: #ffffff;
-      padding: 16px;
-      border-radius: 12px;
+      margin-right: 15px;
+      font-size: 22px;
+      color: white;
+    }
+
+    .text-box {
+      flex: 1;
+    }
+
+    .title {
+      display: block;
       font-weight: 700;
       font-size: 15px;
-      box-shadow: 0 4px 15px rgba(15, 76, 129, 0.2);
-      position: relative;
-      overflow: hidden;
+      color: white;
+      margin-bottom: 2px;
     }
 
-    .button i {
-      margin-right: 10px;
-      font-size: 18px;
+    .subtitle {
+      display: block;
+      font-size: 11px;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.3;
     }
 
-    .nav-item:hover .button {
-      background: #145d9e;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(15, 76, 129, 0.3);
-    }
+    /* Warna Tombol */
+    .bg-wa { background: var(--wa-dark); }
+    .bg-wa:hover { background: var(--wa-green); }
 
-    .desc {
-      font-size: 11.5px;
-      color: #636e72;
-      margin-top: 6px;
-      line-height: 1.5;
-      font-weight: 500;
-    }
+    .bg-danger { background: var(--danger); }
+    .bg-dark { background: var(--dark); }
 
     footer {
-      margin-top: 40px;
-      font-size: 12px;
+      margin-top: 30px;
+      font-size: 11px;
       color: #b2bec3;
       font-weight: 600;
+      letter-spacing: 1px;
     }
 
-    /* Variasi warna khusus untuk lokasi agar beda sendiri */
-    .btn-maps {
-      background: #2d3436 !important;
-    }
-
-    /* Animasi muncul */
-    .container {
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    /* Animasi sederhana */
+    .container { animation: slideUp 0.6s ease-out; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -135,37 +137,53 @@
     <h1>Dinas Lingkungan Hidup</h1>
     <h2>Kabupaten Mojokerto</h2>
     
-    <div class="menu-wrapper">
-      <a href="https://wa.me/6282264944401" class="nav-item">
-        <div class="button"><i class="fab fa-whatsapp"></i> Tata Lingkungan</div>
-        <div class="desc">Konsultasi dokumen perizinan lingkungan (SPPL, UKL-UPL, AMDAL)</div>
-      </a>
+    <a href="https://wa.me/6282264944401" class="card-btn bg-wa">
+      <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+      <div class="text-box">
+        <span class="title">Helpdesk Tata Lingkungan</span>
+        <span class="subtitle">Konsultasi dokumen SPPL, UKL-UPL, dan AMDAL</span>
+      </div>
+    </a>
 
-      <a href="https://wa.me/6281259065456" class="nav-item">
-        <div class="button"><i class="fab fa-whatsapp"></i> Persampahan</div>
-        <div class="desc">Layanan angkutan sampah, retribusi, dan persampahan</div>
-      </a>
+    <a href="https://wa.me/6281259065456" class="card-btn bg-wa">
+      <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+      <div class="text-box">
+        <span class="title">Helpdesk Persampahan</span>
+        <span class="subtitle">Layanan angkutan sampah dan retribusi kebersihan</span>
+      </div>
+    </a>
 
-      <a href="https://wa.me/6282336742595" class="nav-item">
-        <div class="button"><i class="fab fa-whatsapp"></i> Penaatan</div>
-        <div class="desc">Pengaduan teknis, pengawasan, dan sanksi lingkungan</div>
-      </a>
+    <a href="https://wa.me/6282336742595" class="card-btn bg-wa">
+      <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+      <div class="text-box">
+        <span class="title">Helpdesk Penaatan</span>
+        <span class="subtitle">Layanan pengawasan dan sanksi lingkungan hidup</span>
+      </div>
+    </a>
 
-      <a href="https://wa.me/62811315451" class="nav-item">
-        <div class="button"><i class="fas fa-flask"></i> UPTD Lab Lingkungan</div>
-        <div class="desc">Pendaftaran uji laboratorium air, udara, dan limbah</div>
-      </a>
+    <a href="https://wa.me/62811315451" class="card-btn bg-wa">
+      <div class="icon-box"><i class="fas fa-flask"></i></div>
+      <div class="text-box">
+        <span class="title">UPTD Laboratorium</span>
+        <span class="subtitle">Pendaftaran uji laboratorium air, udara, dan limbah</span>
+      </div>
+    </a>
 
-      <a href="https://docs.google.com/forms/d/16u9KU4TMPEUmEiHCcFXX49wwqsrz_4JgXiRADPALzHw/viewform" class="nav-item">
-        <div class="button" style="background: #d63031;"><i class="fas fa-exclamation-triangle"></i> Pelaporan / Aduan</div>
-        <div class="desc">Formulir online pelaporan pencemaran lingkungan</div>
-      </a>
+    <a href="https://docs.google.com/forms/d/..." class="card-btn bg-danger">
+      <div class="icon-box"><i class="fas fa-exclamation-triangle"></i></div>
+      <div class="text-box">
+        <span class="title">Pelaporan / Aduan</span>
+        <span class="subtitle">Formulir online pelaporan pencemaran lingkungan</span>
+      </div>
+    </a>
 
-      <a href="https://goo.gl/maps/xyz" class="nav-item">
-        <div class="button btn-maps"><i class="fas fa-map-marker-alt"></i> Lokasi Kantor</div>
-        <div class="desc">Jl. Pemuda No 55B, Kecamatan Mojosari, Kabupaten Mojokerto</div>
-      </a>
-    </div>
+    <a href="https://maps.app.goo.gl/..." class="card-btn bg-dark">
+      <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+      <div class="text-box">
+        <span class="title">Lokasi Kantor</span>
+        <span class="subtitle">Jl. Raya Jabon No.1, Kabupaten Mojokerto</span>
+      </div>
+    </a>
 
     <footer>
       &copy; 2026 DINAS LINGKUNGAN HIDUP
