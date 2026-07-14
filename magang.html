@@ -149,10 +149,10 @@
   }
   .grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2, minmax(0,1fr));
     gap:18px 20px;
   }
-  .field{display:flex;flex-direction:column;gap:6px;}
+  .field{display:flex;flex-direction:column;gap:6px;min-width:0;}
   .field.full{grid-column:1 / -1;}
   label{
     font-family:'IBM Plex Mono', monospace;
@@ -163,6 +163,8 @@
   }
   label .req{color:var(--soil);}
   input, select, textarea{
+    width:100%;
+    max-width:100%;
     font-family:'IBM Plex Sans', sans-serif;
     font-size:14.5px;
     padding:10px 12px;
