@@ -5,129 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Landing Page | DLH Kab. Mojokerto</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --wa-green: #25D366;
-      --wa-dark: #128C7E;
-      --dlh-blue: #0f4c81;
-      --danger: #e74c3c;
-      --dark: #2d3436;
+      --ink:#1E2B22;
+      --paper:#F1F0E6;
+      --paper-line:#DAD7C6;
+      --forest:#2F4A3C;
+      --forest-dark:#1E3129;
+      --moss:#7C9473;
+      --soil:#8B5A3C;
+      --sky:#4C7A93;
+      --danger:#A8432E;
+      --white:#FCFBF6;
     }
+
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: #f0f2f5;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+      background-size: 100% 32px;
       display: flex;
       justify-content: center;
-      align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 32px 16px;
     }
 
     .container {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 40px 25px;
+      background: var(--white);
+      border: 1px solid var(--ink);
+      box-shadow: 6px 6px 0 rgba(30,43,34,0.08);
       width: 100%;
       max-width: 420px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      padding: 36px 26px 28px;
+      height: fit-content;
     }
 
     .logo-area img {
-      width: 90px;
-      margin-bottom: 15px;
+      width: 68px;
+      margin-bottom: 14px;
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin: 0 0 6px;
     }
 
     h1 {
       margin: 0;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--dlh-blue);
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 24px;
+      color: var(--forest-dark);
+      line-height: 1.2;
     }
 
     h2 {
-      margin: 5px 0 30px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #636e72;
+      margin: 6px 0 0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #5B6A5E;
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
 
-    /* Styling Card Button */
+    .contour {
+      width: 100%;
+      height: 40px;
+      margin: 18px 0 22px;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
     .card-btn {
       display: flex;
       align-items: center;
       text-decoration: none;
-      padding: 15px 20px;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      transition: all 0.3s ease;
-      text-align: left;
-      border: 1px solid rgba(0,0,0,0.05);
+      padding: 13px 14px;
+      border: 1px solid var(--paper-line);
+      border-left: 3px solid var(--accent, var(--forest));
+      background: var(--paper);
+      transition: transform .15s ease, box-shadow .15s ease;
     }
 
     .card-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transform: translateX(2px);
+      box-shadow: 3px 3px 0 rgba(30,43,34,0.08);
     }
 
     .icon-box {
-      width: 45px;
-      height: 45px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--accent, var(--forest));
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 15px;
-      font-size: 22px;
-      color: white;
+      margin-right: 13px;
+      font-size: 15px;
+      color: var(--white);
     }
 
-    .text-box {
-      flex: 1;
-    }
+    .text-box { flex: 1; min-width: 0; }
 
     .title {
       display: block;
-      font-weight: 700;
-      font-size: 15px;
-      color: white;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--ink);
       margin-bottom: 2px;
     }
 
     .subtitle {
       display: block;
       font-size: 11px;
-      color: rgba(255,255,255,0.9);
-      line-height: 1.3;
+      color: #6B7A6E;
+      line-height: 1.35;
     }
 
-    /* Warna Tombol */
-    .bg-wa { background: var(--wa-dark); }
-    .bg-wa:hover { background: var(--wa-green); }
+    .wa   { --accent: var(--moss); }
+    .form { --accent: var(--sky); }
+    .location { --accent: var(--soil); }
 
-    .bg-danger { background: var(--danger); }
-    .bg-dark { background: var(--dark); }
-    .bg-form { background: var(--dlh-blue); }
-    .bg-form:hover { background: #14639e; }
+    .group-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #8A9186;
+      margin: 18px 0 8px;
+      text-align: left;
+    }
+    .menu-list > .group-label:first-child { margin-top: 0; }
 
     footer {
-      margin-top: 30px;
-      font-size: 11px;
-      color: #b2bec3;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    /* Animasi sederhana */
-    .container { animation: slideUp 0.6s ease-out; }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      margin-top: 26px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      color: #8A9186;
+      letter-spacing: .05em;
     }
   </style>
 </head>
@@ -136,68 +171,82 @@
     <div class="logo-area">
       <img src="logo.png" alt="Logo DLH">
     </div>
+    <p class="eyebrow">Pemerintah Kabupaten Mojokerto</p>
     <h1>Dinas Lingkungan Hidup</h1>
     <h2>Kabupaten Mojokerto</h2>
-    
-    <a href="https://wa.me/6282264944401" class="card-btn bg-wa">
-      <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-      <div class="text-box">
-        <span class="title">Helpdesk Bidang Tata Lingkungan</span>
-        <span class="subtitle">Konsultasi dokumen Perizinan Lingkungan</span>
-      </div>
-    </a>
 
-    <a href="https://wa.me/6281259065456" class="card-btn bg-wa">
-      <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-      <div class="text-box">
-        <span class="title">Helpdesk Bidang Persampahan</span>
-        <span class="subtitle">Layanan angkutan sampah dan retribusi sampah</span>
-      </div>
-    </a>
+    <svg class="contour" viewBox="0 0 300 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <g fill="none" stroke="#7C9473" stroke-width="1">
+        <path d="M0,30 C40,22 60,36 100,26 C140,16 160,30 200,20 C230,12 260,22 300,14" opacity="0.9"/>
+        <path d="M0,20 C40,12 60,26 100,16 C140,6 160,20 200,10 C230,2 260,12 300,4" opacity="0.45"/>
+      </g>
+    </svg>
 
-    <a href="magang.html" class="card-btn bg-form">
-      <div class="icon-box"><i class="fas fa-clipboard-list"></i></div>
-      <div class="text-box">
-        <span class="title">Pendaftaran Magang</span>
-        <span class="subtitle">Formulir online magang bagi Mahasiswa dan Siswa/Siswi PKL</span>
-      </div>
-    </a>
+    <div class="menu-list">
+      <p class="group-label">Kontak WhatsApp</p>
 
-    <a href="https://wa.me/6282336742595" class="card-btn bg-wa">
-      <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-      <div class="text-box">
-        <span class="title">Helpdesk Bidang Penaatan Lingkungan Hidup </span>
-        <span class="subtitle">Layanan pengawasan dan sanksi lingkungan hidup</span>
-      </div>
-    </a>
+      <a href="https://wa.me/6282264944401" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">Helpdesk Bidang Tata Lingkungan</span>
+          <span class="subtitle">Konsultasi dokumen Perizinan Lingkungan</span>
+        </div>
+      </a>
 
-    <a href="https://wa.me/62811315451" class="card-btn bg-wa">
-      <div class="icon-box"><i class="fas fa-flask"></i></div>
-      <div class="text-box">
-        <span class="title">UPTD Laboratorium</span>
-        <span class="subtitle">Pendaftaran uji laboratorium air, udara, dan limbah</span>
-      </div>
-    </a>
+      <a href="https://wa.me/6281259065456" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">Helpdesk Bidang Persampahan</span>
+          <span class="subtitle">Layanan angkutan sampah dan retribusi sampah</span>
+        </div>
+      </a>
 
-    <a href="https://damarmojo.lapor.go.id/" class="card-btn bg-danger">
-      <div class="icon-box"><i class="fas fa-exclamation-triangle"></i></div>
-      <div class="text-box">
-        <span class="title">Pelaporan / Aduan</span>
-        <span class="subtitle">Formulir online pelaporan pencemaran lingkungan</span>
-      </div>
-    </a>
+      <a href="https://wa.me/6282336742595" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">Helpdesk Bidang Penaatan Lingkungan Hidup</span>
+          <span class="subtitle">Layanan pengawasan dan sanksi lingkungan hidup</span>
+        </div>
+      </a>
 
-    <a href="https://maps.app.goo.gl/bSE29YEavGSSoaG5A" class="card-btn bg-dark">
-      <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
-      <div class="text-box">
-        <span class="title">Lokasi Kantor</span>
-        <span class="subtitle">Jl. Pemuda No 55B, Kecamatan Mojosari, Kabupaten Mojokerto</span>
-      </div>
-    </a>
+      <a href="https://wa.me/62811315451" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">UPTD Laboratorium</span>
+          <span class="subtitle">Pendaftaran uji laboratorium air, udara, dan limbah</span>
+        </div>
+      </a>
 
-    <footer>
-      &copy; 2026 DINAS LINGKUNGAN HIDUP
-    </footer>
+      <p class="group-label">Formulir Online</p>
+
+      <a href="magang.html" class="card-btn form">
+        <div class="icon-box"><i class="fas fa-clipboard-list"></i></div>
+        <div class="text-box">
+          <span class="title">Pendaftaran Magang</span>
+          <span class="subtitle">Formulir online magang bagi Mahasiswa dan Siswa/Siswi PKL</span>
+        </div>
+      </a>
+
+      <a href="https://damarmojo.lapor.go.id/" class="card-btn form">
+        <div class="icon-box"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="text-box">
+          <span class="title">Pelaporan / Aduan</span>
+          <span class="subtitle">Formulir online pelaporan pencemaran lingkungan</span>
+        </div>
+      </a>
+
+      <p class="group-label">Lokasi</p>
+
+      <a href="https://maps.app.goo.gl/bSE29YEavGSSoaG5A" class="card-btn location">
+        <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="text-box">
+          <span class="title">Lokasi Kantor</span>
+          <span class="subtitle">Jl. Pemuda No 55B, Kecamatan Mojosari, Kabupaten Mojokerto</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>&copy; 2026 DINAS LINGKUNGAN HIDUP</footer>
   </div>
 </body>
 </html>
