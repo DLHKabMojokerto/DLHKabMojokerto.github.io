@@ -1,458 +1,254 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pendaftaran Magang — DLH Kabupaten Mojokerto</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#1E2B22;
-    --paper:#F1F0E6;
-    --paper-line:#DAD7C6;
-    --forest:#2F4A3C;
-    --forest-dark:#1E3129;
-    --moss:#7C9473;
-    --soil:#8B5A3C;
-    --sky:#4C7A93;
-    --white:#FCFBF6;
-    --error:#A8432E;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    min-height:100vh;
-    background-image:
-      linear-gradient(var(--paper-line) 1px, transparent 1px);
-    background-size: 100% 32px;
-  }
-  .wrap{
-    max-width:960px;
-    margin:0 auto;
-    padding:28px 20px 80px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page | DLH Kab. Mojokerto</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#1E2B22;
+      --paper:#F1F0E6;
+      --paper-line:#DAD7C6;
+      --forest:#2F4A3C;
+      --forest-dark:#1E3129;
+      --moss:#7C9473;
+      --soil:#8B5A3C;
+      --sky:#4C7A93;
+      --danger:#A8432E;
+      --white:#FCFBF6;
+    }
 
-  /* ===== Header ===== */
-  .masthead{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    border-bottom:2px solid var(--ink);
-    padding-bottom:16px;
-    margin-bottom:6px;
-    gap:16px;
-  }
-  .agency{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--forest-dark);
-    line-height:1.5;
-  }
-  .agency b{color:var(--ink);}
-  .stamp{
-    flex-shrink:0;
-    width:64px;height:64px;
-    border-radius:50%;
-    border:1.5px solid var(--soil);
-    display:flex;align-items:center;justify-content:center;
-    position:relative;
-    transform:rotate(-8deg);
-  }
-  .stamp::before{
-    content:'';
-    position:absolute;
-    inset:5px;
-    border:1px dashed var(--soil);
-    border-radius:50%;
-  }
-  .stamp span{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:8.5px;
-    color:var(--soil);
-    text-align:center;
-    line-height:1.3;
-    letter-spacing:.03em;
-  }
+    * { box-sizing: border-box; }
 
-  /* ===== Hero ===== */
-  .hero{
-    display:grid;
-    grid-template-columns:1.4fr 1fr;
-    gap:32px;
-    padding:40px 0 32px;
-    align-items:end;
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--sky);
-    margin:0 0 10px;
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:clamp(32px,5vw,48px);
-    line-height:1.08;
-    margin:0 0 16px;
-    color:var(--forest-dark);
-  }
-  .hero p{
-    font-size:15px;
-    line-height:1.6;
-    color:#3D4A40;
-    max-width:46ch;
-    margin:0;
-  }
-  .contour{
-    width:100%;
-    height:150px;
-  }
+    html, body { overflow-x: hidden; }
 
-  /* ===== Form card ===== */
-  .sheet{
-    background:var(--white);
-    border:1px solid var(--ink);
-    box-shadow:6px 6px 0 rgba(30,43,34,0.08);
-  }
-  .section{
-    padding:28px 32px;
-    border-bottom:1px solid var(--paper-line);
-  }
-  .section:last-of-type{border-bottom:none;}
-  .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    margin-bottom:20px;
-  }
-  .section-num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    color:var(--sky);
-    letter-spacing:.05em;
-  }
-  .section-title{
-    font-family:'Fraunces', serif;
-    font-size:20px;
-    font-weight:500;
-    color:var(--forest-dark);
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px 20px;
-  }
-  .field{display:flex;flex-direction:column;gap:6px;}
-  .field.full{grid-column:1 / -1;}
-  label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    color:#5B6A5E;
-  }
-  label .req{color:var(--soil);}
-  input, select, textarea{
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:14.5px;
-    padding:10px 12px;
-    border:1px solid #C7C4B0;
-    background:var(--paper);
-    color:var(--ink);
-    border-radius:2px;
-  }
-  input:focus, select:focus, textarea:focus{
-    outline:2px solid var(--sky);
-    outline-offset:1px;
-    border-color:var(--sky);
-  }
-  textarea{resize:vertical;min-height:64px;font-family:'IBM Plex Sans', sans-serif;}
-  .hint{font-size:12px;color:#7B8A7E;margin-top:2px;}
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+      background-size: 100% 32px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
 
-  /* ===== Submit area ===== */
-  .submit-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    padding:24px 32px 32px;
-    flex-wrap:wrap;
-  }
-  .submit-note{
-    font-size:13px;
-    color:#5B6A5E;
-    max-width:38ch;
-  }
-  button[type=submit]{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    background:var(--forest);
-    color:var(--white);
-    border:none;
-    padding:14px 28px;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    transition:background .15s ease;
-  }
-  button[type=submit]:hover{background:var(--forest-dark);}
-  button[type=submit]:disabled{background:#9AA79E;cursor:wait;}
-  button[type=submit]::after{content:'→';font-size:15px;}
+    .container {
+      background: var(--white);
+      border: 1px solid var(--ink);
+      box-shadow: 6px 6px 0 rgba(30,43,34,0.08);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      padding: 36px 26px 28px;
+      height: fit-content;
+    }
 
-  .error-msg{
-    font-size:12.5px;
-    color:var(--error);
-    min-height:16px;
-  }
+    .logo-area img {
+      width: 68px;
+      margin-bottom: 14px;
+    }
 
-  /* ===== Confirmation state ===== */
-  .receipt{
-    display:none;
-    background:var(--white);
-    border:1px solid var(--ink);
-    box-shadow:6px 6px 0 rgba(30,43,34,0.08);
-    padding:40px 32px;
-    text-align:center;
-  }
-  .receipt.show{display:block;}
-  .sheet.hide{display:none;}
-  .receipt .tick{
-    width:52px;height:52px;
-    border-radius:50%;
-    border:1.5px solid var(--forest);
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 18px;
-  }
-  .receipt h2{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:24px;
-    color:var(--forest-dark);
-    margin:0 0 10px;
-  }
-  .receipt p{
-    font-size:14.5px;
-    color:#3D4A40;
-    line-height:1.6;
-    max-width:44ch;
-    margin:0 auto;
-  }
-  .receipt .ref{
-    margin-top:20px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--sky);
-    letter-spacing:.04em;
-  }
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin: 0 0 6px;
+    }
 
-  footer{
-    text-align:center;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:#8A9186;
-    margin-top:28px;
-    letter-spacing:.03em;
-  }
+    h1 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 24px;
+      color: var(--forest-dark);
+      line-height: 1.2;
+    }
 
-  @media (max-width:720px){
-    .hero{grid-template-columns:1fr;}
-    .grid{grid-template-columns:1fr;}
-    .field.full{grid-column:auto;}
-    .contour{height:90px;}
-    .submit-row{flex-direction:column-reverse;align-items:stretch;text-align:center;}
-  }
-</style>
+    h2 {
+      margin: 6px 0 0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #5B6A5E;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .contour {
+      width: 100%;
+      height: 40px;
+      margin: 18px 0 22px;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .card-btn {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 13px 14px;
+      border: 1px solid var(--paper-line);
+      border-left: 3px solid var(--accent, var(--forest));
+      background: var(--paper);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .card-btn:hover {
+      transform: translateX(2px);
+      box-shadow: 3px 3px 0 rgba(30,43,34,0.08);
+    }
+
+    .icon-box {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--accent, var(--forest));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 13px;
+      font-size: 15px;
+      color: var(--white);
+    }
+
+    .text-box { flex: 1; min-width: 0; }
+
+    .title {
+      display: block;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .subtitle {
+      display: block;
+      font-size: 11px;
+      color: #6B7A6E;
+      line-height: 1.35;
+    }
+
+    .wa   { --accent: var(--moss); }
+    .form { --accent: var(--sky); }
+    .location { --accent: var(--soil); }
+
+    .group-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #8A9186;
+      margin: 18px 0 8px;
+      text-align: left;
+    }
+    .menu-list > .group-label:first-child { margin-top: 0; }
+
+    footer {
+      margin-top: 26px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      color: #8A9186;
+      letter-spacing: .05em;
+    }
+  </style>
 </head>
 <body>
-<div class="wrap">
-
-  <div class="masthead">
-    <div class="agency">
-      Pemerintah Kabupaten Mojokerto<br>
-      <b>Dinas Lingkungan Hidup</b>
+  <div class="container">
+    <div class="logo-area">
+      <img src="logo.png" alt="Logo DLH">
     </div>
-    <div class="stamp"><span>PROGRAM<br>MAGANG</span></div>
-  </div>
+    <p class="eyebrow">Pemerintah Kabupaten Mojokerto</p>
+    <h1>Dinas Lingkungan Hidup</h1>
+    <h2>Kabupaten Mojokerto</h2>
 
-  <div class="hero">
-    <div>
-      <p class="eyebrow">Formulir Pendaftaran</p>
-      <h1>Magang di Dinas Lingkungan Hidup</h1>
-      <p>Isi data di bawah untuk mendaftar program magang. Data yang kamu kirim akan langsung tercatat dan ditindaklanjuti oleh tim DLH Kabupaten Mojokerto.</p>
-    </div>
-    <svg class="contour" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <svg class="contour" viewBox="0 0 300 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
       <g fill="none" stroke="#7C9473" stroke-width="1">
-        <path d="M0,120 C40,100 60,140 100,110 C140,80 160,120 200,90 C230,70 260,95 300,70" opacity="0.9"/>
-        <path d="M0,95 C40,75 60,115 100,85 C140,55 160,95 200,65 C230,45 260,70 300,45" opacity="0.6"/>
-        <path d="M0,70 C40,50 60,90 100,60 C140,30 160,70 200,40 C230,20 260,45 300,20" opacity="0.35"/>
+        <path d="M0,30 C40,22 60,36 100,26 C140,16 160,30 200,20 C230,12 260,22 300,14" opacity="0.9"/>
+        <path d="M0,20 C40,12 60,26 100,16 C140,6 160,20 200,10 C230,2 260,12 300,4" opacity="0.45"/>
       </g>
     </svg>
+
+    <div class="menu-list">
+      <p class="group-label">Kontak WhatsApp</p>
+
+      <a href="https://wa.me/6282264944401" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">Helpdesk Bidang Tata Lingkungan</span>
+          <span class="subtitle">Konsultasi dokumen Perizinan Lingkungan</span>
+        </div>
+      </a>
+
+      <a href="https://wa.me/6281259065456" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">Helpdesk Bidang Persampahan</span>
+          <span class="subtitle">Layanan angkutan sampah dan retribusi sampah</span>
+        </div>
+      </a>
+
+      <a href="https://wa.me/6282336742595" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">Helpdesk Bidang Penaatan Lingkungan Hidup</span>
+          <span class="subtitle">Layanan pengawasan dan sanksi lingkungan hidup</span>
+        </div>
+      </a>
+
+      <a href="https://wa.me/62811315451" class="card-btn wa">
+        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+        <div class="text-box">
+          <span class="title">UPTD Laboratorium</span>
+          <span class="subtitle">Pendaftaran uji laboratorium air, udara, dan limbah</span>
+        </div>
+      </a>
+
+      <p class="group-label">Formulir Online</p>
+
+      <a href="magang.html" class="card-btn form">
+        <div class="icon-box"><i class="fas fa-clipboard-list"></i></div>
+        <div class="text-box">
+          <span class="title">Pendaftaran Magang</span>
+          <span class="subtitle">Formulir online magang bagi Mahasiswa dan Siswa/Siswi PKL</span>
+        </div>
+      </a>
+
+      <a href="https://damarmojo.lapor.go.id/" class="card-btn form">
+        <div class="icon-box"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="text-box">
+          <span class="title">Pelaporan / Aduan</span>
+          <span class="subtitle">Formulir online pelaporan pencemaran lingkungan</span>
+        </div>
+      </a>
+
+      <p class="group-label">Lokasi</p>
+
+      <a href="https://maps.app.goo.gl/bSE29YEavGSSoaG5A" class="card-btn location">
+        <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="text-box">
+          <span class="title">Lokasi Kantor</span>
+          <span class="subtitle">Jl. Pemuda No 55B, Kecamatan Mojosari, Kabupaten Mojokerto</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>&copy; 2026 DINAS LINGKUNGAN HIDUP</footer>
   </div>
-
-  <form id="magangForm" class="sheet" novalidate>
-
-    <div class="section">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <span class="section-title">Data Diri</span>
-      </div>
-      <div class="grid">
-        <div class="field full">
-          <label>Nama Lengkap <span class="req">*</span></label>
-          <input type="text" name="nama" required>
-        </div>
-        <div class="field">
-          <label>No. HP / WhatsApp <span class="req">*</span></label>
-          <input type="tel" name="hp" required>
-        </div>
-        <div class="field">
-          <label>Email <span class="req">*</span></label>
-          <input type="email" name="email" required>
-        </div>
-        <div class="field full">
-          <label>Alamat Domisili</label>
-          <textarea name="alamat" placeholder="Opsional"></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-head">
-        <span class="section-num">02</span>
-        <span class="section-title">Asal Institusi</span>
-      </div>
-      <div class="grid">
-        <div class="field">
-          <label>Jenjang Pendidikan <span class="req">*</span></label>
-          <select name="jenjang" required>
-            <option value="" disabled selected>Pilih jenjang</option>
-            <option>SMA/SMK</option>
-            <option>D3</option>
-            <option>D4/S1</option>
-            <option>S2</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Asal Sekolah/Kampus <span class="req">*</span></label>
-          <input type="text" name="institusi" required>
-        </div>
-        <div class="field full">
-          <label>Program Studi/Jurusan <span class="req">*</span></label>
-          <input type="text" name="jurusan" required>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-head">
-        <span class="section-num">03</span>
-        <span class="section-title">Periode & Minat Magang</span>
-      </div>
-      <div class="grid">
-        <div class="field">
-          <label>Tanggal Mulai <span class="req">*</span></label>
-          <input type="date" name="mulai" required>
-        </div>
-        <div class="field">
-          <label>Tanggal Selesai <span class="req">*</span></label>
-          <input type="date" name="selesai" required>
-        </div>
-        <div class="field full">
-          <label>Bidang yang Diminati</label>
-          <select name="bidang">
-            <option value="" disabled selected>Opsional — pilih bidang</option>
-            <option>Bidang Penaatan dan Pengawasan Lingkungan Hidup</option>
-            <option>Bidang Tata Lingkungan</option>
-            <option>Bidang Pengendalian Pencemaran dan Kerusakan Lingkungan Hidup</option>
-            <option>Bidang Pengelolaan Sampah, Limbah dan Bahan Beracun Berbahaya</option>
-            <option>Sekretariat</option>
-            <option>UPTD Laboratorium Lingkungan</option>
-            <option>Belum tahu / fleksibel</option>
-          </select>
-          <p class="hint">Kami akan menyesuaikan penempatan sesuai kebutuhan bidang.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="submit-row">
-      <p class="submit-note" id="errorMsg"></p>
-      <button type="submit" id="submitBtn">Kirim Pendaftaran</button>
-    </div>
-  </form>
-
-  <div class="receipt" id="receipt">
-    <div class="tick">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#2F4A3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <h2>Pendaftaran Diterima</h2>
-    <p>Terima kasih, data kamu sudah tercatat. Tim DLH Kabupaten Mojokerto akan menghubungi melalui WhatsApp atau email yang kamu isi.</p>
-    <p class="ref" id="refCode"></p>
-  </div>
-
-  <footer>DLH Kabupaten Mojokerto — Program Magang</footer>
-</div>
-
-<script>
-  // GANTI URL DI BAWAH INI dengan URL Web App dari Google Apps Script (lihat panduan setup)
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzy7Ce66caLvt3VEHN4CZiNnis1MGhSWcmxof2v-vRB8KHt5ClkzDMOGcjZW0LSiMzF/exec";
-
-  const form = document.getElementById('magangForm');
-  const btn = document.getElementById('submitBtn');
-  const errorMsg = document.getElementById('errorMsg');
-  const sheet = document.querySelector('.sheet');
-  const receipt = document.getElementById('receipt');
-  const refCode = document.getElementById('refCode');
-
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    errorMsg.textContent = '';
-
-    if (SCRIPT_URL.includes('PASTE_URL')) {
-      errorMsg.textContent = 'URL Google Apps Script belum dipasang. Lihat panduan setup.';
-      return;
-    }
-
-    const data = Object.fromEntries(new FormData(form).entries());
-    const required = ['nama','hp','email','jenjang','institusi','jurusan','mulai','selesai'];
-    const missing = required.filter(k => !data[k]);
-    if (missing.length){
-      errorMsg.textContent = 'Mohon lengkapi semua kolom bertanda *.';
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Mengirim...';
-
-    try {
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(data)
-      });
-
-      sheet.classList.add('hide');
-      receipt.classList.add('show');
-      const now = new Date();
-      refCode.textContent = 'REF: MGD-' + now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + Math.floor(Math.random()*900+100);
-    } catch (err) {
-      errorMsg.textContent = 'Gagal mengirim. Periksa koneksi internet dan coba lagi.';
-      btn.disabled = false;
-      btn.textContent = 'Kirim Pendaftaran';
-    }
-  });
-</script>
 </body>
 </html>
