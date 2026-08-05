@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layanan Persampahan — DLH Kabupaten Mojokerto</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E2B22;
+    --paper:#F1F0E6;
+    --paper-line:#DAD7C6;
+    --forest:#2F4A3C;
+    --forest-dark:#1E3129;
+    --moss:#7C9473;
+    --soil:#8B5A3C;
+    --sky:#4C7A93;
+    --white:#FCFBF6;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+    background-image:linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size:100% 32px;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px;}
+
+  .masthead{
+    display:flex;align-items:center;gap:10px;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:16px;margin-bottom:28px;
+  }
+  .masthead img{width:32px;height:32px;object-fit:contain;flex-shrink:0;}
+  .masthead span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--forest-dark);line-height:1.5;
+  }
+  .masthead b{color:var(--ink);}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--sky);margin:0 0 10px;
+  }
+  h1{
+    font-family:'Fraunces', serif;font-weight:500;
+    font-size:clamp(28px,5vw,40px);line-height:1.12;
+    margin:0 0 14px;color:var(--forest-dark);
+  }
+  .lede{font-size:15px;line-height:1.65;color:#3D4A40;margin:0 0 32px;max-width:60ch;}
+
+  .card{
+    background:var(--white);border:1px solid var(--ink);
+    box-shadow:6px 6px 0 rgba(30,43,34,0.08);
+    padding:28px 28px;margin-bottom:24px;
+  }
+  .card h2{
+    font-family:'Fraunces', serif;font-weight:500;font-size:19px;
+    color:var(--forest-dark);margin:0 0 18px;
+    display:flex;align-items:baseline;gap:10px;
+  }
+  .card h2 .num{
+    font-family:'IBM Plex Mono', monospace;font-size:13px;color:var(--sky);
+  }
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:step;}
+  .steps li{
+    counter-increment:step;
+    display:flex;gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{
+    content:counter(step);
+    font-family:'IBM Plex Mono', monospace;font-size:13px;font-weight:500;
+    color:var(--white);background:var(--moss);
+    width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .steps li div{font-size:14.5px;line-height:1.55;}
+  .steps li b{color:var(--forest-dark);}
+
+  .callout{
+    background:var(--paper);
+    border-left:3px solid var(--soil);
+    padding:14px 16px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:#4A4136;
+    margin-top:18px;
+  }
+
+  .faq{border-bottom:1px solid var(--paper-line);padding:16px 0;}
+  .faq:last-child{border-bottom:none;}
+  .faq .q{
+    font-family:'IBM Plex Sans', sans-serif;font-weight:600;
+    font-size:14.5px;color:var(--ink);margin:0 0 6px;
+  }
+  .faq .a{font-size:14px;line-height:1.6;color:#4A5A4E;margin:0;}
+
+  .wa-block{
+    background:var(--forest);
+    color:var(--white);
+    padding:28px;
+    text-align:center;
+  }
+  .wa-block p{font-size:14px;line-height:1.6;opacity:.9;max-width:44ch;margin:0 auto 18px;}
+  .wa-block a{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--white);color:var(--forest-dark);
+    font-family:'IBM Plex Mono', monospace;font-size:13px;
+    letter-spacing:.05em;text-transform:uppercase;
+    padding:12px 24px;text-decoration:none;
+  }
+
+  footer{
+    text-align:center;font-family:'IBM Plex Mono', monospace;
+    font-size:11px;color:#8A9186;margin-top:28px;letter-spacing:.03em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <img src="logo.png" alt="Logo DLH">
+    <span><b>Dinas Lingkungan Hidup</b><br>Kabupaten Mojokerto</span>
+  </div>
+
+  <p class="eyebrow">Info Layanan</p>
+  <h1>Cara Kerja Layanan Angkutan Sampah</h1>
+  <p class="lede">Sebelum menghubungi Helpdesk Bidang Persampahan, baca dulu penjelasan singkat ini — supaya kamu tahu persis apa yang bisa dan tidak bisa dibantu langsung oleh DLH.</p>
+
+  <div class="card">
+    <h2><span class="num">01</span> Alur Layanan Sampah Rumah Tangga</h2>
+    <ol class="steps">
+      <li><div>Pengangkutan sampah rumah tangga <b>dikoordinasikan lewat RT/RW/Desa setempat</b>, bukan permintaan langsung perorangan ke DLH.</div></li>
+      <li><div>Wilayah yang sudah punya layanan ini biasanya menerapkan <b>retribusi bulanan</b>, yang diatur dan dikelola di tingkat RT/RW/Desa.</div></li>
+      <li><div>DLH berperan mengangkut sampah dari <b>TPS ke TPA</b> serta menetapkan kebijakan pengelolaan sampah secara umum di Kabupaten Mojokerto — bukan menjemput dari rumah ke rumah atas permintaan individu.</div></li>
+    </ol>
+    <div class="callout">
+      Kalau di wilayah kamu belum ada layanan angkutan sampah, langkah pertama adalah <b>koordinasi dengan Ketua RT/RW atau perangkat Desa/Kelurahan setempat</b> — bukan menghubungi DLH langsung.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">02</span> Pertanyaan Umum</h2>
+
+    <div class="faq">
+      <p class="q">Kenapa saya tidak bisa langsung minta DLH mengangkut sampah rumah saya?</p>
+      <p class="a">Karena pengangkutan sampah rumah tangga dikelola berjenjang mulai dari RT/RW/Desa, bukan permintaan perorangan ke DLH.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">RT/RW saya belum punya layanan angkutan sampah, harus bagaimana?</p>
+      <p class="a">Sampaikan ke Ketua RT/RW atau perangkat Desa/Kelurahan agar mereka yang berkoordinasi dengan DLH untuk pengadaan layanan di wilayah tersebut.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">Apakah ada biaya?</p>
+      <p class="a">Umumnya ada retribusi bulanan yang besarannya diatur di tingkat RT/RW/Desa masing-masing.</p>
+    </div>
+
+    <div class="faq">
+      <p class="q">Kalau begitu, Bidang Persampahan DLH bisa dihubungi untuk apa saja?</p>
+      <p class="a">Untuk hal di luar permintaan angkut sampah perorangan — misalnya koordinasi tingkat RT/RW/Desa, retribusi sampah di wilayah yang sudah terlayani, atau pertanyaan lain seputar pengelolaan sampah dan TPS/TPA.</p>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div class="wa-block">
+      <p>Pertanyaan kamu belum terjawab di atas? Silakan hubungi Helpdesk Bidang Persampahan.</p>
+      <a href="https://wa.me/6281259065456?text=Halo%20Bapak/Ibu.%0A%0APerkenalkan%2C%20saya%3A%0A%0ANama%3A%20%5BNama%5D%0AAlamat%3A%20%5BAlamat%5D%0A%0ASaya%20sudah%20membaca%20info%20layanan%20sampah%2C%20dan%20ingin%20menanyakan%3A%0A%0A%5BPertanyaan%20kamu%5D%0A%0ATerima%20kasih.">
+        <i class="fab fa-whatsapp"></i> Chat Helpdesk Persampahan
+      </a>
+    </div>
+  </div>
+
+  <footer>DLH Kabupaten Mojokerto — Layanan Persampahan</footer>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</body>
+</html>
