@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilah Sampah — Game Edukasi DLH Kabupaten Mojokerto</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#BFE6EE;
+    --sky-deep:#7FC8D9;
+    --organik:#5FAE52;
+    --organik-dark:#3E7C36;
+    --anorganik:#3C8FC2;
+    --anorganik-dark:#2A6690;
+    --b3:#E2574C;
+    --b3-dark:#A83A31;
+    --sun:#FFC93C;
+    --ink:#2B3A2E;
+    --white:#FFFFFF;
+    --cloud:#F6FBFC;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;}
+  body{
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+    min-height:100vh;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:18px 16px 24px;}
+
+  .masthead{
+    display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,0.55);
+    border-radius:999px;
+    padding:8px 16px 8px 8px;
+    margin-bottom:16px;
+    width:fit-content;
+  }
+  .masthead img{width:28px;height:28px;object-fit:contain;border-radius:50%;background:var(--white);padding:2px;}
+  .masthead span{font-size:11.5px;font-weight:700;color:var(--organik-dark);letter-spacing:.02em;}
+
+  h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(26px,7vw,36px);
+    line-height:1.05;
+    margin:0 0 6px;
+    color:var(--organik-dark);
+    text-shadow:2px 2px 0 rgba(255,255,255,.6);
+  }
+  .lede{font-size:14.5px;color:#2B4A32;line-height:1.5;margin:0 0 18px;max-width:46ch;}
+
+  .hud{
+    display:flex;gap:10px;margin-bottom:18px;
+  }
+  .hud-chip{
+    background:var(--white);
+    border-radius:16px;
+    padding:10px 14px;
+    flex:1;
+    text-align:center;
+    box-shadow:0 4px 0 rgba(0,0,0,0.08);
+  }
+  .hud-chip .num{font-family:'Baloo 2', sans-serif;font-weight:700;font-size:22px;color:var(--organik-dark);}
+  .hud-chip .lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#7A8A7D;}
+
+  .board{
+    background:var(--cloud);
+    border-radius:24px;
+    padding:18px;
+    box-shadow:0 8px 0 rgba(0,0,0,0.08);
+    margin-bottom:18px;
+    min-height:220px;
+  }
+  .board-title{
+    font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+    color:#7A8A7D;margin:0 0 12px;text-align:center;
+  }
+  .items{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(84px,1fr));
+    gap:10px;
+  }
+  .item{
+    background:var(--white);
+    border:2px solid transparent;
+    border-radius:16px;
+    padding:12px 6px 10px;
+    text-align:center;
+    cursor:pointer;
+    transition:transform .12s ease, border-color .12s ease;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .item .emoji{font-size:30px;display:block;margin-bottom:4px;}
+  .item .label{font-size:11px;font-weight:700;color:var(--ink);line-height:1.2;}
+  .item:active{transform:scale(0.94);}
+  .item.selected{
+    border-color:var(--sun);
+    transform:translateY(-4px);
+    box-shadow:0 6px 0 rgba(255,201,60,0.5);
+  }
+  .item.wrong{animation:shake .35s ease;}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-6px);}
+    75%{transform:translateX(6px);}
+  }
+  .item.gone{display:none;}
+
+  .bins{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+  }
+  .bin{
+    border:none;
+    border-radius:18px;
+    padding:16px 8px 14px;
+    text-align:center;
+    cursor:pointer;
+    color:var(--white);
+    font-family:'Nunito', sans-serif;
+    transition:transform .12s ease;
+    box-shadow:0 5px 0 rgba(0,0,0,0.18);
+  }
+  .bin:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,0.18);}
+  .bin .icon{font-size:28px;display:block;margin-bottom:4px;}
+  .bin .name{font-weight:800;font-size:13px;}
+  .bin.organik{background:var(--organik);}
+  .bin.anorganik{background:var(--anorganik);}
+  .bin.b3{background:var(--b3);}
+  .bin.bump{animation:bump .3s ease;}
+  @keyframes bump{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.08);}
+    100%{transform:scale(1);}
+  }
+
+  .toast{
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    min-height:22px;
+    margin:12px 0 4px;
+    color:var(--organik-dark);
+  }
+  .toast.wrong-msg{color:var(--b3-dark);}
+
+  .info-toggle{
+    display:inline-block;
+    background:rgba(255,255,255,0.7);
+    border-radius:999px;
+    padding:6px 14px;
+    font-size:12px;
+    font-weight:700;
+    color:var(--anorganik-dark);
+    cursor:pointer;
+    margin-bottom:18px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .info-panel{
+    display:none;
+    background:var(--white);
+    border-radius:16px;
+    padding:16px;
+    margin:-10px 0 18px;
+    font-size:13px;
+    line-height:1.6;
+  }
+  .info-panel.show{display:block;}
+  .info-panel b{color:var(--organik-dark);}
+
+  .end-screen{
+    display:none;
+    background:var(--white);
+    border-radius:24px;
+    padding:32px 24px;
+    text-align:center;
+    box-shadow:0 8px 0 rgba(0,0,0,0.08);
+  }
+  .end-screen.show{display:block;}
+  .end-screen .medal{font-size:56px;margin-bottom:8px;}
+  .end-screen h2{font-family:'Baloo 2', sans-serif;font-weight:800;font-size:24px;color:var(--organik-dark);margin:0 0 6px;}
+  .end-screen p{font-size:14px;color:#4A5A4E;line-height:1.6;margin:0 0 22px;}
+  .end-screen button{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;font-size:14px;
+    background:var(--organik);color:var(--white);
+    border:none;border-radius:999px;
+    padding:12px 28px;cursor:pointer;
+    box-shadow:0 5px 0 var(--organik-dark);
+  }
+  .end-screen button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--organik-dark);}
+
+  .game-area{display:block;}
+  .game-area.hidden{display:none;}
+
+  footer{
+    text-align:center;font-size:11px;color:#2B4A32;
+    opacity:.7;margin-top:20px;font-weight:700;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <img src="logo.png" alt="Logo DLH">
+    <span>Dinas Lingkungan Hidup<br>Kabupaten Mojokerto</span>
+  </div>
+
+  <h1>🗑️ Pilah Sampah!</h1>
+  <p class="lede">Tap sampahnya, terus tap tong yang benar. Yuk buktikan kamu jago pilah sampah!</p>
+
+  <div class="info-toggle" id="infoToggle">❓ Apa bedanya Organik, Anorganik, B3?</div>
+  <div class="info-panel" id="infoPanel">
+    <p><b>🟢 Organik</b> — sampah sisa makhluk hidup yang bisa terurai alami, misalnya sisa makanan, daun, dan kulit buah.</p>
+    <p><b>🔵 Anorganik</b> — sampah yang sulit terurai tapi bisa didaur ulang, misalnya plastik, kertas, kaca, dan kaleng.</p>
+    <p><b>🔴 B3 (Bahan Berbahaya &amp; Beracun)</b> — sampah yang berbahaya bagi lingkungan dan kesehatan, misalnya baterai, lampu bekas, dan oli bekas. Harus dibuang terpisah, tidak boleh dicampur sampah biasa.</p>
+  </div>
+
+  <div class="game-area" id="gameArea">
+    <div class="hud">
+      <div class="hud-chip"><div class="num" id="scoreNum">0</div><div class="lbl">Skor</div></div>
+      <div class="hud-chip"><div class="num" id="roundNum">1/15</div><div class="lbl">Sampah</div></div>
+      <div class="hud-chip"><div class="num" id="streakNum">0</div><div class="lbl">Beruntun</div></div>
+    </div>
+
+    <div class="board">
+      <p class="board-title">Tap sampah yang mau dipilah</p>
+      <div class="items" id="itemsGrid"></div>
+    </div>
+
+    <p class="toast" id="toast">Pilih salah satu sampah di atas ⬆️</p>
+
+    <div class="bins">
+      <button class="bin organik" data-bin="organik"><span class="icon">🍃</span><span class="name">Organik</span></button>
+      <button class="bin anorganik" data-bin="anorganik"><span class="icon">♻️</span><span class="name">Anorganik</span></button>
+      <button class="bin b3" data-bin="b3"><span class="icon">☣️</span><span class="name">B3</span></button>
+    </div>
+  </div>
+
+  <div class="end-screen" id="endScreen">
+    <div class="medal" id="endMedal">🏆</div>
+    <h2 id="endTitle">Mantap!</h2>
+    <p id="endDesc">Kamu berhasil memilah sampah dengan baik.</p>
+    <button id="restartBtn">Main Lagi</button>
+  </div>
+
+  <footer>DLH Kabupaten Mojokerto — Game Edukasi Pilah Sampah</footer>
+</div>
+
+<script>
+  const ALL_ITEMS = [
+    {emoji:'🍌', label:'Kulit pisang', bin:'organik'},
+    {emoji:'🍚', label:'Sisa nasi', bin:'organik'},
+    {emoji:'🍂', label:'Daun kering', bin:'organik'},
+    {emoji:'🍗', label:'Tulang ayam', bin:'organik'},
+    {emoji:'🥚', label:'Kulit telur', bin:'organik'},
+    {emoji:'🥬', label:'Sisa sayur', bin:'organik'},
+    {emoji:'🍾', label:'Botol plastik', bin:'anorganik'},
+    {emoji:'🥫', label:'Kaleng minuman', bin:'anorganik'},
+    {emoji:'📦', label:'Kardus bekas', bin:'anorganik'},
+    {emoji:'📰', label:'Kertas koran', bin:'anorganik'},
+    {emoji:'🛍️', label:'Kantong plastik', bin:'anorganik'},
+    {emoji:'🫙', label:'Botol kaca', bin:'anorganik'},
+    {emoji:'🔋', label:'Baterai bekas', bin:'b3'},
+    {emoji:'💡', label:'Lampu bekas', bin:'b3'},
+    {emoji:'🧪', label:'Botol pestisida', bin:'b3'},
+    {emoji:'🎨', label:'Kaleng cat', bin:'b3'},
+    {emoji:'📱', label:'Elektronik rusak', bin:'b3'},
+    {emoji:'🛢️', label:'Oli bekas', bin:'b3'},
+  ];
+
+  const ROUND_SIZE = 15;
+  let roundItems = [];
+  let selectedIndex = null;
+  let score = 0;
+  let streak = 0;
+  let answered = 0;
+
+  const itemsGrid = document.getElementById('itemsGrid');
+  const scoreNum = document.getElementById('scoreNum');
+  const roundNum = document.getElementById('roundNum');
+  const streakNum = document.getElementById('streakNum');
+  const toast = document.getElementById('toast');
+  const gameArea = document.getElementById('gameArea');
+  const endScreen = document.getElementById('endScreen');
+  const endMedal = document.getElementById('endMedal');
+  const endTitle = document.getElementById('endTitle');
+  const endDesc = document.getElementById('endDesc');
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function startGame(){
+    roundItems = shuffle(ALL_ITEMS).slice(0, ROUND_SIZE);
+    score = 0; streak = 0; answered = 0; selectedIndex = null;
+    scoreNum.textContent = '0';
+    streakNum.textContent = '0';
+    roundNum.textContent = '1/' + ROUND_SIZE;
+    toast.textContent = 'Pilih salah satu sampah di atas ⬆️';
+    toast.classList.remove('wrong-msg');
+    gameArea.classList.remove('hidden');
+    endScreen.classList.remove('show');
+    renderItems();
+  }
+
+  function renderItems(){
+    itemsGrid.innerHTML = '';
+    roundItems.forEach((it, idx) => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.dataset.idx = idx;
+      div.innerHTML = `<span class="emoji">${it.emoji}</span><span class="label">${it.label}</span>`;
+      div.addEventListener('click', () => selectItem(idx, div));
+      itemsGrid.appendChild(div);
+    });
+  }
+
+  function selectItem(idx, el){
+    if (el.classList.contains('gone')) return;
+    document.querySelectorAll('.item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedIndex = idx;
+    toast.textContent = 'Sekarang tap tong yang benar ⬇️';
+    toast.classList.remove('wrong-msg');
+  }
+
+  document.querySelectorAll('.bin').forEach(bin => {
+    bin.addEventListener('click', () => {
+      if (selectedIndex === null) {
+        toast.textContent = 'Tap sampahnya dulu ya ⬆️';
+        return;
+      }
+      const item = roundItems[selectedIndex];
+      const el = itemsGrid.querySelector(`[data-idx="${selectedIndex}"]`);
+      bin.classList.remove('bump');
+      void bin.offsetWidth;
+      bin.classList.add('bump');
+
+      if (item.bin === bin.dataset.bin) {
+        score += 10;
+        streak += 1;
+        toast.textContent = '✅ Tepat! ' + item.label + ' memang ' + capitalize(item.bin) + '.';
+        toast.classList.remove('wrong-msg');
+        el.classList.add('gone');
+        answered += 1;
+      } else {
+        streak = 0;
+        el.classList.add('wrong');
+        setTimeout(() => el.classList.remove('wrong'), 350);
+        toast.textContent = '❌ Bukan itu. ' + item.label + ' seharusnya masuk ' + capitalize(item.bin) + '.';
+        toast.classList.add('wrong-msg');
+      }
+
+      scoreNum.textContent = score;
+      streakNum.textContent = streak;
+      selectedIndex = null;
+      document.querySelectorAll('.item').forEach(i => i.classList.remove('selected'));
+
+      if (answered >= ROUND_SIZE) {
+        setTimeout(showEnd, 500);
+      } else {
+        roundNum.textContent = (answered + 1) + '/' + ROUND_SIZE;
+      }
+    });
+  });
+
+  function capitalize(s){
+    if (s === 'b3') return 'B3';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function showEnd(){
+    gameArea.classList.add('hidden');
+    endScreen.classList.add('show');
+    const max = ROUND_SIZE * 10;
+    if (score === max) {
+      endMedal.textContent = '🏆';
+      endTitle.textContent = 'Sempurna!';
+      endDesc.textContent = 'Semua sampah berhasil dipilah dengan benar. Kamu jagoan pilah sampah!';
+    } else if (score >= max * 0.7) {
+      endMedal.textContent = '🌟';
+      endTitle.textContent = 'Keren banget!';
+      endDesc.textContent = 'Skor kamu ' + score + ' dari ' + max + '. Sedikit lagi sempurna!';
+    } else if (score >= max * 0.4) {
+      endMedal.textContent = '🌱';
+      endTitle.textContent = 'Lumayan!';
+      endDesc.textContent = 'Skor kamu ' + score + ' dari ' + max + '. Yuk coba lagi biar makin jago!';
+    } else {
+      endMedal.textContent = '💪';
+      endTitle.textContent = 'Ayo Coba Lagi!';
+      endDesc.textContent = 'Skor kamu ' + score + ' dari ' + max + '. Baca dulu penjelasan kategorinya di atas, yuk!';
+    }
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', startGame);
+
+  document.getElementById('infoToggle').addEventListener('click', () => {
+    document.getElementById('infoPanel').classList.toggle('show');
+  });
+
+  startGame();
+</script>
+</body>
+</html>
