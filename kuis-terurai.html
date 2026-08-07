@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berapa Lama Terurai? — Kuis Edukasi DLH Kabupaten Mojokerto</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#BFE6EE; --sky-deep:#7FC8D9;
+    --organik:#5FAE52; --organik-dark:#3E7C36;
+    --anorganik:#3C8FC2; --anorganik-dark:#2A6690;
+    --b3:#E2574C; --b3-dark:#A83A31;
+    --sun:#FFC93C; --ink:#2B3A2E; --white:#FFFFFF; --cloud:#F6FBFC;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;}
+  body{
+    font-family:'Nunito', sans-serif; color:var(--ink);
+    background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+    min-height:100vh;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:18px 16px 24px;}
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'Nunito', sans-serif;font-weight:700;font-size:12px;
+    color:var(--organik-dark);text-decoration:none;margin-bottom:12px;
+  }
+  .masthead{
+    display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,0.55);border-radius:999px;padding:8px 16px 8px 8px;
+    margin-bottom:16px;width:fit-content;
+  }
+  .masthead img{width:28px;height:28px;object-fit:contain;border-radius:50%;background:var(--white);padding:2px;}
+  .masthead span{font-size:11.5px;font-weight:700;color:var(--organik-dark);letter-spacing:.02em;}
+  h1{
+    font-family:'Baloo 2', sans-serif;font-weight:800;font-size:clamp(24px,6.5vw,34px);
+    line-height:1.05;margin:0 0 6px;color:var(--organik-dark);
+    text-shadow:2px 2px 0 rgba(255,255,255,.6);
+  }
+  .lede{font-size:14.5px;color:#2B4A32;line-height:1.5;margin:0 0 18px;max-width:46ch;}
+
+  .hud{display:flex;gap:10px;margin-bottom:18px;}
+  .hud-chip{background:var(--white);border-radius:16px;padding:10px 14px;flex:1;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,0.08);}
+  .hud-chip .num{font-family:'Baloo 2', sans-serif;font-weight:700;font-size:22px;color:var(--organik-dark);}
+  .hud-chip .lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#7A8A7D;}
+
+  .quiz-card{
+    background:var(--cloud);border-radius:24px;padding:22px 20px;
+    box-shadow:0 8px 0 rgba(0,0,0,0.08);margin-bottom:18px;
+  }
+  .item-display{text-align:center;margin-bottom:18px;}
+  .item-display .emoji{font-size:56px;display:block;margin-bottom:6px;}
+  .item-display .label{font-family:'Baloo 2', sans-serif;font-weight:700;font-size:19px;color:var(--ink);}
+  .question-text{text-align:center;font-size:13.5px;font-weight:700;color:#5B6A5E;margin:0 0 16px;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option{
+    background:var(--white);border:2px solid transparent;border-radius:14px;
+    padding:13px 16px;text-align:left;font-family:'Nunito', sans-serif;font-weight:700;
+    font-size:14px;color:var(--ink);cursor:pointer;transition:transform .1s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .option:active{transform:scale(0.98);}
+  .option.correct{background:var(--organik);color:var(--white);border-color:var(--organik-dark);}
+  .option.wrong{background:var(--b3);color:var(--white);border-color:var(--b3-dark);}
+  .option.disabled{pointer-events:none;opacity:.6;}
+  .option.disabled.correct, .option.disabled.wrong{opacity:1;}
+
+  .fact-box{
+    display:none;background:var(--white);border-radius:16px;padding:16px;margin-top:14px;
+    font-size:13px;line-height:1.6;border-left:4px solid var(--sun);
+  }
+  .fact-box.show{display:block;}
+  .fact-box b{color:var(--organik-dark);}
+
+  .next-btn{
+    display:none;width:100%;margin-top:14px;
+    font-family:'Baloo 2', sans-serif;font-weight:700;font-size:14px;
+    background:var(--anorganik);color:var(--white);border:none;border-radius:999px;
+    padding:13px;cursor:pointer;box-shadow:0 5px 0 var(--anorganik-dark);
+  }
+  .next-btn.show{display:block;}
+  .next-btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--anorganik-dark);}
+
+  .disclaimer{
+    font-size:11px;color:#4A5A4E;text-align:center;opacity:.8;line-height:1.5;margin:0 0 18px;
+  }
+
+  .end-screen{
+    display:none;background:var(--white);border-radius:24px;padding:32px 24px;text-align:center;
+    box-shadow:0 8px 0 rgba(0,0,0,0.08);
+  }
+  .end-screen.show{display:block;}
+  .end-screen .medal{font-size:56px;margin-bottom:8px;}
+  .end-screen h2{font-family:'Baloo 2', sans-serif;font-weight:800;font-size:24px;color:var(--organik-dark);margin:0 0 6px;}
+  .end-screen p{font-size:14px;color:#4A5A4E;line-height:1.6;margin:0 0 22px;}
+  .end-screen button{
+    font-family:'Baloo 2', sans-serif;font-weight:700;font-size:14px;
+    background:var(--organik);color:var(--white);border:none;border-radius:999px;
+    padding:12px 28px;cursor:pointer;box-shadow:0 5px 0 var(--organik-dark);
+  }
+  .end-screen button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--organik-dark);}
+
+  .game-area.hidden{display:none;}
+  footer{text-align:center;font-size:11px;color:#2B4A32;opacity:.7;margin-top:20px;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="index.html" class="back-link">&larr; Menu Utama</a>
+
+  <div class="masthead">
+    <img src="logo.png" alt="Logo DLH">
+    <span>Dinas Lingkungan Hidup<br>Kabupaten Mojokerto</span>
+  </div>
+
+  <h1>⏳ Berapa Lama Terurai?</h1>
+  <p class="lede">Tebak berapa lama sampah ini butuh waktu untuk terurai di alam. Siap-siap kaget!</p>
+  <p class="disclaimer">Angka pada kuis ini adalah perkiraan umum yang sering dikutip dalam materi edukasi lingkungan. Kondisi nyata dapat bervariasi tergantung lingkungan tempat sampah berada.</p>
+
+  <div class="game-area" id="gameArea">
+    <div class="hud">
+      <div class="hud-chip"><div class="num" id="scoreNum">0</div><div class="lbl">Skor</div></div>
+      <div class="hud-chip"><div class="num" id="roundNum">1/8</div><div class="lbl">Soal</div></div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="item-display">
+        <span class="emoji" id="itemEmoji">🍌</span>
+        <span class="label" id="itemLabel">Kulit pisang</span>
+      </div>
+      <p class="question-text">Kira-kira berapa lama sampah ini terurai di alam?</p>
+      <div class="options" id="optionsBox"></div>
+      <div class="fact-box" id="factBox"></div>
+    </div>
+
+    <button class="next-btn" id="nextBtn">Lanjut &rarr;</button>
+  </div>
+
+  <div class="end-screen" id="endScreen">
+    <div class="medal" id="endMedal">🏆</div>
+    <h2 id="endTitle">Mantap!</h2>
+    <p id="endDesc">Kamu jago nebak waktu terurai sampah.</p>
+    <button id="restartBtn">Main Lagi</button>
+  </div>
+
+  <footer>DLH Kabupaten Mojokerto — Kuis Edukasi</footer>
+</div>
+
+<script>
+  const QUESTIONS = [
+    {
+      emoji:'🍌', label:'Kulit pisang',
+      options:['3 hari', '2–5 minggu', '1 tahun', '10 tahun'],
+      correct:1,
+      fact:'Kulit pisang termasuk sampah organik yang cepat terurai, sekitar <b>2–5 minggu</b> dalam kondisi normal. Bagus buat dijadikan kompos!'
+    },
+    {
+      emoji:'📰', label:'Kertas / koran',
+      options:['1 minggu', '2–5 bulan', '5 tahun', '50 tahun'],
+      correct:1,
+      fact:'Kertas butuh sekitar <b>2–5 bulan</b> untuk terurai. Makanya daur ulang kertas sangat membantu mengurangi penebangan pohon baru.'
+    },
+    {
+      emoji:'🚬', label:'Puntung rokok',
+      options:['1 bulan', '1 tahun', 'Sekitar 10 tahun', '500 tahun'],
+      correct:2,
+      fact:'Filter puntung rokok terbuat dari serat plastik (selulosa asetat), butuh sekitar <b>10 tahun</b> untuk terurai — dan selama itu bisa mencemari air.'
+    },
+    {
+      emoji:'👕', label:'Kaos katun',
+      options:['1 minggu', 'Beberapa bulan hingga 1 tahun', '50 tahun', '200 tahun'],
+      correct:1,
+      fact:'Kain katun alami terurai relatif cepat, sekitar <b>beberapa bulan sampai 1 tahun</b> — beda jauh dengan kain sintetis seperti poliester yang jauh lebih lama.'
+    },
+    {
+      emoji:'🥫', label:'Kaleng aluminium',
+      options:['5 tahun', 'Sekitar 80–100 tahun', '1000 tahun', 'Tidak pernah terurai'],
+      correct:1,
+      fact:'Kaleng aluminium butuh sekitar <b>80–100 tahun</b> untuk terurai — tapi aluminium termasuk bahan yang paling efektif didaur ulang berulang kali.'
+    },
+    {
+      emoji:'🛍️', label:'Kantong plastik',
+      options:['1 tahun', 'Sekitar 10–20 tahun', '450 tahun', '1 hari'],
+      correct:1,
+      fact:'Kantong plastik diperkirakan butuh <b>puluhan tahun</b> (sekitar 10–20 tahun ke atas) untuk terurai — dan itu pun jadi mikroplastik, bukan hilang sepenuhnya.'
+    },
+    {
+      emoji:'🍾', label:'Botol plastik (PET)',
+      options:['10 tahun', '50 tahun', 'Sekitar 450 tahun', '1000 tahun'],
+      correct:2,
+      fact:'Botol plastik PET diperkirakan butuh sekitar <b>450 tahun</b> untuk terurai sepenuhnya. Bawa botol minum sendiri jauh lebih ramah lingkungan!'
+    },
+    {
+      emoji:'🫙', label:'Botol kaca',
+      options:['10 tahun', '100 tahun', '1000 tahun', 'Jutaan tahun / praktis tidak terurai'],
+      correct:3,
+      fact:'Kaca butuh waktu yang sangat lama untuk terurai — dalam praktiknya dianggap <b>tidak terurai</b> di skala waktu manusia. Untungnya kaca 100% bisa didaur ulang berulang kali.'
+    }
+  ];
+
+  let order = [];
+  let current = 0;
+  let score = 0;
+  let answered = false;
+
+  const scoreNum = document.getElementById('scoreNum');
+  const roundNum = document.getElementById('roundNum');
+  const itemEmoji = document.getElementById('itemEmoji');
+  const itemLabel = document.getElementById('itemLabel');
+  const optionsBox = document.getElementById('optionsBox');
+  const factBox = document.getElementById('factBox');
+  const nextBtn = document.getElementById('nextBtn');
+  const gameArea = document.getElementById('gameArea');
+  const endScreen = document.getElementById('endScreen');
+  const endMedal = document.getElementById('endMedal');
+  const endTitle = document.getElementById('endTitle');
+  const endDesc = document.getElementById('endDesc');
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function startGame(){
+    order = shuffle(QUESTIONS.map((_, i) => i));
+    current = 0; score = 0;
+    scoreNum.textContent = '0';
+    gameArea.classList.remove('hidden');
+    endScreen.classList.remove('show');
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    answered = false;
+    const q = QUESTIONS[order[current]];
+    roundNum.textContent = (current + 1) + '/' + QUESTIONS.length;
+    itemEmoji.textContent = q.emoji;
+    itemLabel.textContent = q.label;
+    factBox.classList.remove('show');
+    factBox.innerHTML = '';
+    nextBtn.classList.remove('show');
+
+    optionsBox.innerHTML = '';
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('div');
+      btn.className = 'option';
+      btn.textContent = opt;
+      btn.addEventListener('click', () => selectOption(idx, btn, q));
+      optionsBox.appendChild(btn);
+    });
+  }
+
+  function selectOption(idx, el, q){
+    if (answered) return;
+    answered = true;
+    const allOptions = optionsBox.querySelectorAll('.option');
+    allOptions.forEach(o => o.classList.add('disabled'));
+
+    if (idx === q.correct) {
+      el.classList.add('correct');
+      score += 10;
+    } else {
+      el.classList.add('wrong');
+      allOptions[q.correct].classList.add('correct');
+    }
+    scoreNum.textContent = score;
+
+    factBox.innerHTML = '💡 ' + q.fact;
+    factBox.classList.add('show');
+    nextBtn.classList.add('show');
+  }
+
+  nextBtn.addEventListener('click', () => {
+    current += 1;
+    if (current >= QUESTIONS.length) {
+      showEnd();
+    } else {
+      renderQuestion();
+    }
+  });
+
+  function showEnd(){
+    gameArea.classList.add('hidden');
+    endScreen.classList.add('show');
+    const max = QUESTIONS.length * 10;
+    if (score === max) {
+      endMedal.textContent = '🏆';
+      endTitle.textContent = 'Sempurna!';
+      endDesc.textContent = 'Semua jawaban benar! Kamu paham banget soal waktu terurai sampah.';
+    } else if (score >= max * 0.6) {
+      endMedal.textContent = '🌟';
+      endTitle.textContent = 'Keren!';
+      endDesc.textContent = 'Skor kamu ' + score + ' dari ' + max + '. Lumayan jago nih!';
+    } else {
+      endMedal.textContent = '🌱';
+      endTitle.textContent = 'Ayo Coba Lagi!';
+      endDesc.textContent = 'Skor kamu ' + score + ' dari ' + max + '. Ternyata banyak yang mengejutkan, ya?';
+    }
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', startGame);
+
+  startGame();
+</script>
+</body>
+</html>

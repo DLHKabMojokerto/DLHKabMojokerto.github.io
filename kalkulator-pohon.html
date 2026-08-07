@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berapa Pohon yang Kamu Selamatkan? — DLH Kabupaten Mojokerto</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#BFE6EE; --sky-deep:#7FC8D9;
+    --organik:#5FAE52; --organik-dark:#3E7C36;
+    --anorganik:#3C8FC2; --anorganik-dark:#2A6690;
+    --sun:#FFC93C; --ink:#2B3A2E; --white:#FFFFFF; --cloud:#F6FBFC;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;overflow-x:hidden;}
+  body{
+    font-family:'Nunito', sans-serif; color:var(--ink);
+    background:linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+    min-height:100vh;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:18px 16px 24px;}
+  .back-link{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'Nunito', sans-serif;font-weight:700;font-size:12px;
+    color:var(--organik-dark);text-decoration:none;margin-bottom:12px;
+  }
+  .masthead{
+    display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,0.55);border-radius:999px;padding:8px 16px 8px 8px;
+    margin-bottom:16px;width:fit-content;
+  }
+  .masthead img{width:28px;height:28px;object-fit:contain;border-radius:50%;background:var(--white);padding:2px;}
+  .masthead span{font-size:11.5px;font-weight:700;color:var(--organik-dark);letter-spacing:.02em;}
+  h1{
+    font-family:'Baloo 2', sans-serif;font-weight:800;font-size:clamp(24px,6.5vw,34px);
+    line-height:1.05;margin:0 0 6px;color:var(--organik-dark);
+    text-shadow:2px 2px 0 rgba(255,255,255,.6);
+  }
+  .lede{font-size:14.5px;color:#2B4A32;line-height:1.5;margin:0 0 8px;max-width:46ch;}
+  .disclaimer{font-size:11px;color:#4A5A4E;opacity:.8;line-height:1.5;margin:0 0 18px;}
+
+  .board{
+    background:var(--cloud);border-radius:24px;padding:18px;
+    box-shadow:0 8px 0 rgba(0,0,0,0.08);margin-bottom:18px;
+  }
+  .board-title{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#7A8A7D;margin:0 0 12px;}
+
+  .habit{
+    display:flex;align-items:center;gap:12px;
+    background:var(--white);border-radius:16px;
+    padding:12px 14px;margin-bottom:10px;
+    cursor:pointer;border:2px solid transparent;
+    transition:border-color .12s ease, transform .1s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .habit:last-child{margin-bottom:0;}
+  .habit:active{transform:scale(0.99);}
+  .habit.checked{border-color:var(--organik);background:#EFF7ED;}
+  .habit .emoji{font-size:24px;flex-shrink:0;}
+  .habit .text{flex:1;}
+  .habit .text .h-title{display:block;font-weight:700;font-size:13.5px;color:var(--ink);}
+  .habit .text .h-sub{display:block;font-size:11px;color:#7A8A7D;margin-top:1px;}
+  .habit .check{
+    width:22px;height:22px;border-radius:6px;border:2px solid #C6D6C9;
+    flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    font-size:13px;color:var(--white);
+  }
+  .habit.checked .check{background:var(--organik);border-color:var(--organik);}
+
+  .calc-btn{
+    display:block;width:100%;margin-top:4px;
+    font-family:'Baloo 2', sans-serif;font-weight:700;font-size:15px;
+    background:var(--organik);color:var(--white);border:none;border-radius:999px;
+    padding:14px;cursor:pointer;box-shadow:0 5px 0 var(--organik-dark);
+  }
+  .calc-btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--organik-dark);}
+
+  .result{
+    display:none;background:var(--white);border-radius:24px;padding:30px 24px;text-align:center;
+    box-shadow:0 8px 0 rgba(0,0,0,0.08);margin-bottom:18px;
+  }
+  .result.show{display:block;}
+  .result .big-emoji{font-size:52px;margin-bottom:6px;}
+  .result .big-num{font-family:'Baloo 2', sans-serif;font-weight:800;font-size:44px;color:var(--organik-dark);line-height:1;}
+  .result .big-lbl{font-size:13px;font-weight:700;color:#5B6A5E;text-transform:uppercase;letter-spacing:.04em;margin-top:4px;}
+  .result p{font-size:13.5px;color:#4A5A4E;line-height:1.6;margin:16px 0 0;}
+  .result button{
+    margin-top:18px;font-family:'Baloo 2', sans-serif;font-weight:700;font-size:13px;
+    background:var(--anorganik);color:var(--white);border:none;border-radius:999px;
+    padding:11px 24px;cursor:pointer;box-shadow:0 5px 0 var(--anorganik-dark);
+  }
+  .result button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--anorganik-dark);}
+
+  footer{text-align:center;font-size:11px;color:#2B4A32;opacity:.7;margin-top:20px;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="index.html" class="back-link">&larr; Menu Utama</a>
+
+  <div class="masthead">
+    <img src="logo.png" alt="Logo DLH">
+    <span>Dinas Lingkungan Hidup<br>Kabupaten Mojokerto</span>
+  </div>
+
+  <h1>🌳 Berapa Pohon yang Kamu Selamatkan?</h1>
+  <p class="lede">Centang kebiasaan yang sudah kamu lakukan, lalu lihat estimasi kontribusinya buat lingkungan dalam setahun.</p>
+  <p class="disclaimer">Hasil di bawah adalah estimasi ilustratif untuk edukasi, bukan perhitungan ilmiah presisi.</p>
+
+  <div class="board" id="board">
+    <p class="board-title">Kebiasaan sehari-hari</p>
+    <div id="habitsList"></div>
+  </div>
+
+  <button class="calc-btn" id="calcBtn">Hitung Kontribusiku</button>
+
+  <div class="result" id="result">
+    <div class="big-emoji" id="resultEmoji">🌱</div>
+    <div class="big-num" id="resultNum">0</div>
+    <div class="big-lbl">Pohon per Tahun</div>
+    <p id="resultDesc">Mulai dari kebiasaan kecil, yuk!</p>
+    <button id="resetBtn">Hitung Ulang</button>
+  </div>
+
+  <footer>DLH Kabupaten Mojokerto — Kalkulator Edukasi</footer>
+</div>
+
+<script>
+  const HABITS = [
+    {emoji:'🥤', title:'Bawa botol minum sendiri', sub:'Mengurangi sampah botol plastik sekali pakai', poin:2},
+    {emoji:'🛍️', title:'Bawa tas belanja sendiri', sub:'Mengurangi kantong plastik sekali pakai', poin:2},
+    {emoji:'🖨️', title:'Kurangi cetak/print kertas', sub:'Hemat kertas dari pohon yang ditebang', poin:3},
+    {emoji:'♻️', title:'Pisahkan sampah untuk didaur ulang', sub:'Organik, anorganik, dan B3 dipisah', poin:2},
+    {emoji:'🚲', title:'Jalan kaki/sepeda/transportasi umum', sub:'Mengurangi emisi kendaraan pribadi', poin:3},
+    {emoji:'💡', title:'Matikan listrik saat tidak dipakai', sub:'Hemat energi dari sumber tak terbarukan', poin:2},
+    {emoji:'🍂', title:'Kompos sampah organik di rumah', sub:'Sampah dapur jadi pupuk, bukan ke TPA', poin:3},
+    {emoji:'🌱', title:'Menanam pohon/tanaman di rumah', sub:'Menambah ruang hijau sendiri', poin:3},
+  ];
+
+  const habitsList = document.getElementById('habitsList');
+  const calcBtn = document.getElementById('calcBtn');
+  const board = document.getElementById('board');
+  const result = document.getElementById('result');
+  const resultNum = document.getElementById('resultNum');
+  const resultDesc = document.getElementById('resultDesc');
+  const resultEmoji = document.getElementById('resultEmoji');
+
+  let selected = new Set();
+
+  function render(){
+    habitsList.innerHTML = '';
+    HABITS.forEach((h, idx) => {
+      const div = document.createElement('div');
+      div.className = 'habit' + (selected.has(idx) ? ' checked' : '');
+      div.innerHTML = `
+        <span class="emoji">${h.emoji}</span>
+        <span class="text">
+          <span class="h-title">${h.title}</span>
+          <span class="h-sub">${h.sub}</span>
+        </span>
+        <span class="check">${selected.has(idx) ? '✓' : ''}</span>
+      `;
+      div.addEventListener('click', () => {
+        if (selected.has(idx)) selected.delete(idx);
+        else selected.add(idx);
+        render();
+      });
+      habitsList.appendChild(div);
+    });
+  }
+
+  calcBtn.addEventListener('click', () => {
+    let totalPoin = 0;
+    selected.forEach(idx => totalPoin += HABITS[idx].poin);
+    const trees = Math.round((totalPoin / 5) * 10) / 10;
+
+    board.style.display = 'none';
+    calcBtn.style.display = 'none';
+    result.classList.add('show');
+    resultNum.textContent = trees;
+
+    if (trees === 0) {
+      resultEmoji.textContent = '🌰';
+      resultDesc.textContent = 'Belum ada kebiasaan yang dicentang. Coba mulai dari satu kebiasaan kecil dulu, yuk!';
+    } else if (trees < 2) {
+      resultEmoji.textContent = '🌱';
+      resultDesc.textContent = 'Awal yang bagus! Tambah beberapa kebiasaan lagi buat kontribusi yang lebih besar.';
+    } else if (trees < 4) {
+      resultEmoji.textContent = '🌿';
+      resultDesc.textContent = 'Mantap, kebiasaanmu sudah cukup ramah lingkungan!';
+    } else {
+      resultEmoji.textContent = '🌳';
+      resultDesc.textContent = 'Keren banget! Kebiasaanmu sehari-hari punya kontribusi besar buat lingkungan.';
+    }
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    selected = new Set();
+    render();
+    board.style.display = 'block';
+    calcBtn.style.display = 'block';
+    result.classList.remove('show');
+  });
+
+  render();
+</script>
+</body>
+</html>
