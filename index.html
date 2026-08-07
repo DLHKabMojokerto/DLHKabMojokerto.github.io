@@ -168,6 +168,101 @@
       color: #8A9186;
       letter-spacing: .05em;
     }
+
+    /* ===== Floating Air Quality Widget ===== */
+    .aqi-fab{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      z-index:50;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:var(--forest-dark);
+      color:var(--white);
+      border:none;
+      border-radius:999px;
+      padding:12px 16px;
+      font-family:'IBM Plex Mono', monospace;
+      font-size:11.5px;
+      letter-spacing:.03em;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(30,43,34,0.35);
+    }
+    .aqi-fab .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:#8A9186;
+      flex-shrink:0;
+    }
+    .aqi-fab .dot.loaded{background:var(--aqi-color, #8A9186);}
+
+    .aqi-panel{
+      position:fixed;
+      right:16px;
+      bottom:76px;
+      z-index:50;
+      width:min(280px, calc(100vw - 32px));
+      background:var(--white);
+      border:1px solid var(--ink);
+      box-shadow:6px 6px 0 rgba(30,43,34,0.12);
+      padding:18px;
+      display:none;
+    }
+    .aqi-panel.show{display:block;}
+    .aqi-panel .aqi-eyebrow{
+      font-family:'IBM Plex Mono', monospace;
+      font-size:10.5px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--sky);
+      margin:0 0 6px;
+    }
+    .aqi-panel .aqi-station{
+      font-size:12px;
+      color:#5B6A5E;
+      margin:0 0 14px;
+      line-height:1.4;
+    }
+    .aqi-panel .aqi-main{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .aqi-panel .aqi-number{
+      font-family:'Fraunces', serif;
+      font-weight:600;
+      font-size:36px;
+      color:var(--ink);
+    }
+    .aqi-panel .aqi-category{
+      font-family:'IBM Plex Sans', sans-serif;
+      font-weight:600;
+      font-size:13px;
+      padding:3px 10px;
+      border-radius:999px;
+      color:var(--white);
+      background:var(--aqi-color, #8A9186);
+    }
+    .aqi-panel .aqi-updated{
+      font-size:10.5px;
+      color:#8A9186;
+      margin-top:10px;
+      font-family:'IBM Plex Mono', monospace;
+    }
+    .aqi-panel .aqi-loading, .aqi-panel .aqi-error{
+      font-size:12.5px;
+      color:#5B6A5E;
+      text-align:center;
+      padding:10px 0;
+    }
+    .aqi-panel .aqi-close{
+      position:absolute;
+      top:10px;right:12px;
+      background:none;border:none;
+      font-size:16px;color:#8A9186;
+      cursor:pointer;line-height:1;
+    }
   </style>
 </head>
 <body>
@@ -254,5 +349,83 @@
 
     <footer>&copy; 2026 DINAS LINGKUNGAN HIDUP</footer>
   </div>
+
+  <!-- ===== Floating Air Quality Widget ===== -->
+  <button class="aqi-fab" id="aqiFab">
+    <span class="dot" id="aqiDot"></span>
+    <span>Kualitas Udara</span>
+  </button>
+
+  <div class="aqi-panel" id="aqiPanel">
+    <button class="aqi-close" id="aqiClose">&times;</button>
+    <p class="aqi-eyebrow">Kualitas Udara Terkini</p>
+    <div id="aqiContent">
+      <p class="aqi-loading">Memuat data...</p>
+    </div>
+  </div>
+
+  <script>
+    // GANTI dengan token gratis dari https://aqicn.org/data-platform/token/
+    const AQI_TOKEN = "57b91b455311af18d3c76b31ebcbcc2030d7b4e2";
+    // Koordinat sekitar Kabupaten Mojokerto (Mojosari) — stasiun terdekat otomatis dipilih
+    const AQI_LAT = -7.5333;
+    const AQI_LON = 112.4500;
+
+    const aqiFab = document.getElementById('aqiFab');
+    const aqiPanel = document.getElementById('aqiPanel');
+    const aqiClose = document.getElementById('aqiClose');
+    const aqiDot = document.getElementById('aqiDot');
+    const aqiContent = document.getElementById('aqiContent');
+
+    let aqiLoaded = false;
+
+    function aqiCategory(aqi){
+      if (aqi <= 50) return { label: 'Baik', color: '#5FAE52' };
+      if (aqi <= 100) return { label: 'Sedang', color: '#D9B23C' };
+      if (aqi <= 150) return { label: 'Tidak Sehat (Sensitif)', color: '#E08A3C' };
+      if (aqi <= 200) return { label: 'Tidak Sehat', color: '#D9524A' };
+      if (aqi <= 300) return { label: 'Sangat Tidak Sehat', color: '#8B4FA8' };
+      return { label: 'Berbahaya', color: '#7A2E2E' };
+    }
+
+    async function loadAqi(){
+      if (AQI_TOKEN.includes('GANTI_DENGAN_TOKEN')) {
+        aqiContent.innerHTML = '<p class="aqi-error">Token AQICN belum dipasang. Lihat panduan setup.</p>';
+        return;
+      }
+      try {
+        const res = await fetch(`https://api.waqi.info/feed/geo:${AQI_LAT};${AQI_LON}/?token=${AQI_TOKEN}`);
+        const data = await res.json();
+        if (data.status !== 'ok') throw new Error('API error');
+
+        const aqi = data.data.aqi;
+        const station = data.data.city.name;
+        const updated = data.data.time.s;
+        const cat = aqiCategory(aqi);
+
+        aqiDot.classList.add('loaded');
+        aqiDot.style.setProperty('--aqi-color', cat.color);
+        aqiPanel.style.setProperty('--aqi-color', cat.color);
+
+        aqiContent.innerHTML = `
+          <p class="aqi-station">${station}</p>
+          <div class="aqi-main">
+            <span class="aqi-number">${aqi}</span>
+            <span class="aqi-category">${cat.label}</span>
+          </div>
+          <p class="aqi-updated">Diperbarui: ${updated}</p>
+        `;
+        aqiLoaded = true;
+      } catch (err) {
+        aqiContent.innerHTML = '<p class="aqi-error">Data kualitas udara sedang tidak tersedia.</p>';
+      }
+    }
+
+    aqiFab.addEventListener('click', () => {
+      aqiPanel.classList.toggle('show');
+      if (!aqiLoaded) loadAqi();
+    });
+    aqiClose.addEventListener('click', () => aqiPanel.classList.remove('show'));
+  </script>
 </body>
 </html>
