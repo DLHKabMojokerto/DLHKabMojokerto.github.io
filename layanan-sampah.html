@@ -1,193 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layanan Persampahan — DLH Kabupaten Mojokerto</title>
-<link rel="icon" type="image/png" href="logo.png" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f9ff">
+<title>Cara Kerja Layanan Angkutan Sampah — DLH Kabupaten Mojokerto</title>
+<meta name="description" content="Sebelum menghubungi Helpdesk Bidang Persampahan, baca dulu penjelasan singkat ini — supaya Anda tahu persis apa yang dapat dan tidak dapat dibantu langsung">
+<link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#1E2B22;
-    --paper:#F1F0E6;
-    --paper-line:#DAD7C6;
-    --forest:#2F4A3C;
-    --forest-dark:#1E3129;
-    --moss:#7C9473;
-    --soil:#8B5A3C;
-    --sky:#4C7A93;
-    --white:#FCFBF6;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;overflow-x:hidden;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    min-height:100vh;
-    background-image:linear-gradient(var(--paper-line) 1px, transparent 1px);
-    background-size:100% 32px;
-  }
-  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px;}
-
-  .masthead{
-    display:flex;align-items:center;gap:10px;
-    border-bottom:2px solid var(--ink);
-    padding-bottom:16px;margin-bottom:28px;
-  }
-  .masthead img{width:32px;height:32px;object-fit:contain;flex-shrink:0;}
-  .masthead span{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--forest-dark);line-height:1.5;
-  }
-  .masthead b{color:var(--ink);}
-
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--sky);margin:0 0 10px;
-  }
-  h1{
-    font-family:'Fraunces', serif;font-weight:500;
-    font-size:clamp(28px,5vw,40px);line-height:1.12;
-    margin:0 0 14px;color:var(--forest-dark);
-  }
-  .lede{font-size:15px;line-height:1.65;color:#3D4A40;margin:0 0 32px;max-width:60ch;}
-
-  .card{
-    background:var(--white);border:1px solid var(--ink);
-    box-shadow:6px 6px 0 rgba(30,43,34,0.08);
-    padding:28px 28px;margin-bottom:24px;
-  }
-  .card h2{
-    font-family:'Fraunces', serif;font-weight:500;font-size:19px;
-    color:var(--forest-dark);margin:0 0 18px;
-    display:flex;align-items:baseline;gap:10px;
-  }
-  .card h2 .num{
-    font-family:'IBM Plex Mono', monospace;font-size:13px;color:var(--sky);
-  }
-
-  .steps{list-style:none;margin:0;padding:0;counter-reset:step;}
-  .steps li{
-    counter-increment:step;
-    display:flex;gap:14px;
-    padding:14px 0;
-    border-bottom:1px solid var(--paper-line);
-  }
-  .steps li:last-child{border-bottom:none;}
-  .steps li::before{
-    content:counter(step);
-    font-family:'IBM Plex Mono', monospace;font-size:13px;font-weight:500;
-    color:var(--white);background:var(--moss);
-    width:24px;height:24px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .steps li div{font-size:14.5px;line-height:1.55;}
-  .steps li b{color:var(--forest-dark);}
-
-  .callout{
-    background:var(--paper);
-    border-left:3px solid var(--soil);
-    padding:14px 16px;
-    font-size:13.5px;
-    line-height:1.6;
-    color:#4A4136;
-    margin-top:18px;
-  }
-
-  .faq{border-bottom:1px solid var(--paper-line);padding:16px 0;}
-  .faq:last-child{border-bottom:none;}
-  .faq .q{
-    font-family:'IBM Plex Sans', sans-serif;font-weight:600;
-    font-size:14.5px;color:var(--ink);margin:0 0 6px;
-  }
-  .faq .a{font-size:14px;line-height:1.6;color:#4A5A4E;margin:0;}
-
-  .wa-block{
-    background:var(--forest);
-    color:var(--white);
-    padding:28px;
-    text-align:center;
-  }
-  .wa-block p{font-size:14px;line-height:1.6;opacity:.9;max-width:44ch;margin:0 auto 18px;}
-  .wa-block a{
-    display:inline-flex;align-items:center;gap:10px;
-    background:var(--white);color:var(--forest-dark);
-    font-family:'IBM Plex Mono', monospace;font-size:13px;
-    letter-spacing:.05em;text-transform:uppercase;
-    padding:12px 24px;text-decoration:none;
-  }
-
-  footer{
-    text-align:center;font-family:'IBM Plex Mono', monospace;
-    font-size:11px;color:#8A9186;margin-top:28px;letter-spacing:.03em;
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="public-pages.css">
 </head>
-<body>
-<div class="wrap">
-
-  <div class="masthead">
-    <img src="logo.png" alt="Logo DLH">
-    <span><b>Dinas Lingkungan Hidup</b><br>Kabupaten Mojokerto</span>
-  </div>
-
-  <p class="eyebrow">Info Layanan</p>
-  <h1>Cara Kerja Layanan Angkutan Sampah</h1>
-  <p class="lede">Sebelum menghubungi Helpdesk Bidang Persampahan, baca dulu penjelasan singkat ini — supaya Anda tahu persis apa yang dapat dan tidak dapat dibantu langsung oleh DLH.</p>
-
-  <div class="card">
-    <h2><span class="num">01</span> Alur Layanan Sampah Rumah Tangga</h2>
-    <ol class="steps">
-      <li><div>Pengangkutan sampah rumah tangga <b>dikoordinasikan lewat RT/RW/Desa setempat</b>, bukan permintaan langsung perorangan ke DLH.</div></li>
-      <li><div>Wilayah yang sudah punya layanan ini biasanya menerapkan <b>retribusi bulanan</b>, yang diatur dan dikelola di tingkat RT/RW/Desa.</div></li>
-      <li><div>DLH berperan mengangkut sampah dari <b>TPS ke TPA</b> serta menetapkan kebijakan pengelolaan sampah secara umum di Kabupaten Mojokerto — bukan menjemput dari rumah ke rumah atas permintaan individu.</div></li>
-    </ol>
-    <div class="callout">
+<body><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false"><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol><symbol id="i-arrow-up-right-from-square" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-9 9"/><path d="M19 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol><symbol id="i-circle-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.7 2.7 0 1 1 4.4 2.1c-1.2.9-1.9 1.3-1.9 3"/><circle cx="12" cy="17" r=".8" fill="currentColor" stroke="none"/></symbol><symbol id="i-comments" viewBox="0 0 24 24"><path d="M4 16a7 7 0 0 1-2-5 7 7 0 0 1 7-7h5a7 7 0 0 1 7 7 7 7 0 0 1-7 7H9l-4 3v-5z"/><path d="M8 11h.1m3.9 0h.1m3.9 0h.1"/></symbol><symbol id="i-flask-vial" viewBox="0 0 24 24"><path d="M9 3h6M10 3v7l-5.8 8.7A2.2 2.2 0 0 0 6 22h12a2.2 2.2 0 0 0 1.8-3.3L14 10V3"/><path d="M7 16h10"/></symbol><symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><rect x="2" y="12" width="5" height="8" rx="2"/><rect x="17" y="12" width="5" height="8" rx="2"/><path d="M19.5 20v.5a3 3 0 0 1-3 3h-4"/></symbol><symbol id="i-house" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-8h6v8"/></symbol><symbol id="i-list-check" viewBox="0 0 24 24"><path d="m3 6 2 2 3-4M11 6h10M3 14l2 2 3-4m3 2h10M3 21h18"/></symbol><symbol id="i-map-marked-alt" viewBox="0 0 24 24"><path d="M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15m6-12v15"/><circle cx="12" cy="11" r="1.3" fill="currentColor" stroke="none"/></symbol><symbol id="i-recycle" viewBox="0 0 24 24"><path d="m7 5 3-3 3 3M10 2v5M6 9 3 14l3 5h5"/><path d="m9 22-3-3 3-3M6 19h5M18 18h3l-2-5"/><path d="m22 14-3-1-1 3M18 6l-3-4h-4"/></symbol><symbol id="i-scale-balanced" viewBox="0 0 24 24"><path d="M12 3v18M4 6h16M4 6l-3 7h6zM20 6l-3 7h6zM7 21h10"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 2 1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8zM5 17l.7 1.3L7 19l-1.3.7L5 21l-.7-1.3L3 19l1.3-.7zM19 16l.7 1.3L21 18l-1.3.7L19 20l-.7-1.3L17 18l1.3-.7z"/></symbol><symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M20 11.5a8.5 8.5 0 0 1-12.5 7.4L3 20l1.2-4.5A8.5 8.5 0 1 1 20 11.5z"/><path d="M8 8c0 3.4 3.4 6.8 6.8 6.8l1.2-1.2-2-1.4-1.2 1c-1.5-.6-2.6-1.7-3.3-3.2l1-1.2-1.3-1.9z"/></symbol></svg>
+<header class="site-header"><div class="wrap header-inner">
+<a href="index.html" class="brand" aria-label="Ke Beranda DLH Kabupaten Mojokerto">
+ <span class="brand-emblem"><img src="logo.png" alt="Logo DLH" onerror="this.style.display='none'"></span>
+ <span class="brand-copy"><strong>Dinas Lingkungan Hidup</strong><small>Kabupaten Mojokerto</small></span>
+</a>
+<nav class="header-actions" aria-label="Navigasi utama">
+ <a class="header-link secondary" href="index.html"><svg class="ui-icon" aria-hidden="true"><use href="#i-house"></use></svg> Beranda</a>
+ <a class="header-link primary" href="helpdesk.html"><svg class="ui-icon" aria-hidden="true"><use href="#i-headset"></use></svg> Helpdesk</a>
+</nav>
+</div></header>
+<main><section class="wrap hero detail-hero">
+ <div class="hero-copy"><div class="breadcrumb"><a href="index.html">Beranda</a><svg class="ui-icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg><a href="helpdesk.html">Helpdesk</a><svg class="ui-icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg><span>Persampahan</span></div>
+ <span class="eyebrow"><svg class="ui-icon" aria-hidden="true"><use href="#i-recycle"></use></svg> Info layanan / Persampahan</span>
+ <h1>Cara Kerja Layanan Angkutan Sampah</h1><p class="hero-lede">Sebelum menghubungi Helpdesk Bidang Persampahan, baca dulu penjelasan singkat ini — supaya Anda tahu persis apa yang dapat dan tidak dapat dibantu langsung oleh DLH.</p>
+ <div class="hero-pills"><a class="hero-pill" href="#panduan"><svg class="ui-icon" aria-hidden="true"><use href="#i-list-check"></use></svg> Panduan layanan</a><a class="hero-pill" href="#tanya-jawab"><svg class="ui-icon" aria-hidden="true"><use href="#i-circle-question"></use></svg> Pertanyaan umum</a></div></div>
+ <div class="hero-art tone-yellow" aria-hidden="true"><div class="art-halo"></div><div class="art-orbit"></div><div class="art-orbit two"></div>
+ <div class="art-panel"><div class="art-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-recycle"></use></svg></div></div>
+ <div class="art-sticker left"><svg class="ui-icon" aria-hidden="true"><use href="#i-circle-check"></use></svg>Panduan jelas</div>
+ <div class="art-sticker right"><svg class="ui-icon" aria-hidden="true"><use href="#i-sparkles"></use></svg>Hubungi petugas</div></div>
+</section>
+<section class="wrap detail-layout" aria-label="Informasi lengkap layanan">
+ <div class="content-stack">
+  <article id="panduan" class="info-card"><div class="card-head"><span class="section-number">01</span><h2>Alur Layanan Sampah Rumah Tangga</h2></div>
+   <ol class="steps"><li><div>Pengangkutan sampah rumah tangga <b>dikoordinasikan lewat RT/RW/Desa setempat</b>, bukan permintaan langsung perorangan ke DLH.</div></li><li><div>Wilayah yang sudah punya layanan ini biasanya menerapkan <b>retribusi bulanan</b>, yang diatur dan dikelola di tingkat RT/RW/Desa.</div></li><li><div>DLH berperan mengangkut sampah dari <b>TPS ke TPA</b> serta menetapkan kebijakan pengelolaan sampah secara umum di Kabupaten Mojokerto &mdash; bukan menjemput dari rumah ke rumah atas permintaan individu.</div></li></ol><div class="callout">
       Apabila di wilayah Anda belum ada layanan angkutan sampah, langkah pertama adalah <b>koordinasi dengan Ketua RT/RW atau perangkat Desa/Kelurahan setempat</b>, bukan menghubungi DLH langsung.
     </div>
+  </article>
+  <section id="tanya-jawab" class="info-card" aria-labelledby="faq-heading"><div class="card-head"><span class="section-number">02</span><h2 id="faq-heading">Pertanyaan Umum</h2></div>
+   <div class="faq-list"><details class="faq" open><summary>Mengapa saya tidak dapat langsung meminta DLH mengangkut sampah rumah saya?</summary><div class="answer">Karena pengangkutan sampah rumah tangga dikelola berjenjang mulai dari RT/RW/Desa, bukan permintaan perorangan ke DLH.</div></details><details class="faq"><summary>RT/RW saya belum punya layanan angkutan sampah, harus bagaimana?</summary><div class="answer">Sampaikan ke Ketua RT/RW atau perangkat Desa/Kelurahan agar mereka yang berkoordinasi dengan DLH untuk pengadaan layanan di wilayah tersebut.</div></details><details class="faq"><summary>Apakah ada biaya?</summary><div class="answer">Umumnya ada retribusi bulanan yang besarannya diatur di tingkat RT/RW/Desa masing-masing.</div></details><details class="faq"><summary>Lalu, Bidang Persampahan DLH dapat dihubungi untuk hal apa saja?</summary><div class="answer">Untuk hal di luar permintaan angkut sampah perorangan &mdash; misalnya koordinasi tingkat RT/RW/Desa, retribusi sampah di wilayah yang sudah terlayani, atau pertanyaan lain seputar pengelolaan sampah dan TPS/TPA.</div></details></div>
+  </section>
+ </div>
+ <aside class="sidebar" aria-label="Kontak dan navigasi">
+  <div class="help-card"><div class="help-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-headset"></use></svg></div><h2>Masih perlu bantuan?</h2><p>Pertanyaan Anda belum terjawab di atas? Silakan hubungi Helpdesk Bidang Persampahan.</p>
+   <a class="whatsapp" href="https://wa.me/6281259065456?text=Halo%20Bapak/Ibu.%0A%0APerkenalkan%2C%20saya%3A%0A%0ANama%3A%20%5BNama%5D%0AAlamat%3A%20%5BAlamat%5D%0A%0ASaya%20sudah%20membaca%20info%20layanan%20sampah%2C%20dan%20ingin%20menanyakan%3A%0A%0A%5BPertanyaan%20Anda%5D%0A%0ATerima%20kasih." target="_blank" rel="noopener noreferrer"><svg class="ui-icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg>Chat Helpdesk Persampahan <svg class="ui-icon" aria-hidden="true" style="font-size:11px;color:#2866ce"><use href="#i-arrow-up-right-from-square"></use></svg></a>
   </div>
-
-  <div class="card">
-    <h2><span class="num">02</span> Pertanyaan Umum</h2>
-
-    <div class="faq">
-      <p class="q">Mengapa saya tidak dapat langsung meminta DLH mengangkut sampah rumah saya?</p>
-      <p class="a">Karena pengangkutan sampah rumah tangga dikelola berjenjang mulai dari RT/RW/Desa, bukan permintaan perorangan ke DLH.</p>
-    </div>
-
-    <div class="faq">
-      <p class="q">RT/RW saya belum punya layanan angkutan sampah, harus bagaimana?</p>
-      <p class="a">Sampaikan ke Ketua RT/RW atau perangkat Desa/Kelurahan agar mereka yang berkoordinasi dengan DLH untuk pengadaan layanan di wilayah tersebut.</p>
-    </div>
-
-    <div class="faq">
-      <p class="q">Apakah ada biaya?</p>
-      <p class="a">Umumnya ada retribusi bulanan yang besarannya diatur di tingkat RT/RW/Desa masing-masing.</p>
-    </div>
-
-    <div class="faq">
-      <p class="q">Lalu, Bidang Persampahan DLH dapat dihubungi untuk hal apa saja?</p>
-      <p class="a">Untuk hal di luar permintaan angkut sampah perorangan — misalnya koordinasi tingkat RT/RW/Desa, retribusi sampah di wilayah yang sudah terlayani, atau pertanyaan lain seputar pengelolaan sampah dan TPS/TPA.</p>
-    </div>
-  </div>
-
-  <div class="card" style="padding:0;overflow:hidden;">
-    <div class="wa-block">
-      <p>Pertanyaan Anda belum terjawab di atas? Silakan hubungi Helpdesk Bidang Persampahan.</p>
-      <a href="https://wa.me/6281259065456?text=Halo%20Bapak/Ibu.%0A%0APerkenalkan%2C%20saya%3A%0A%0ANama%3A%20%5BNama%5D%0AAlamat%3A%20%5BAlamat%5D%0A%0ASaya%20sudah%20membaca%20info%20layanan%20sampah%2C%20dan%20ingin%20menanyakan%3A%0A%0A%5BPertanyaan%20Anda%5D%0A%0ATerima%20kasih.">
-        <i class="fab fa-whatsapp"></i> Chat Helpdesk Persampahan
-      </a>
-    </div>
-  </div>
-
-  <footer>DLH Kabupaten Mojokerto — Layanan Persampahan</footer>
-</div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-</body>
-</html>
+  <div class="tiny-nav"><h3>Jelajahi halaman</h3><a href="#panduan">Apa yang ditangani <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a><a href="#tanya-jawab">Pertanyaan umum <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a><a href="helpdesk.html">Lihat semua bidang <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a></div>
+ </aside>
+</section>
+<section class="wrap more-services" aria-labelledby="other-title"><div class="section-heading"><div><p class="section-kicker">Layanan terkait</p><h2 id="other-title">Cari bantuan dari bidang lain?</h2><p>Pilih bidang atau unit lain sesuai kebutuhan Anda.</p></div></div>
+<div class="quick-grid"><a class="quick-card tone-sky" href="layanan-tata-lingkungan.html"><span class="quick-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-map-marked-alt"></use></svg></span><span class="quick-name">Tata Lingkungan</span><svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a><a class="quick-card tone-coral" href="layanan-penaatan.html"><span class="quick-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-scale-balanced"></use></svg></span><span class="quick-name">Penaatan Lingkungan</span><svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a><a class="quick-card tone-purple" href="layanan-lab.html"><span class="quick-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-flask-vial"></use></svg></span><span class="quick-name">Laboratorium</span><svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a></div></section>
+</main>
+<footer class="wrap footer"><span>© 2026 Dinas Lingkungan Hidup Kabupaten Mojokerto</span><span>Portal pelayanan masyarakat · <a href="index.html">Kembali ke beranda <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-up-right-from-square"></use></svg></a></span></footer>
+</body></html>
