@@ -1,431 +1,650 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Landing Page | DLH Kab. Mojokerto</title>
-  <link rel="icon" type="image/png" href="logo.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#eef6ff">
+  <meta name="description" content="Portal layanan digital Dinas Lingkungan Hidup Kabupaten Mojokerto. Informasi magang, pengaduan, helpdesk, dan edukasi lingkungan dalam satu tempat.">
+  <title>DLH Kabupaten Mojokerto — Layanan Lingkungan, Satu Pintu</title>
+  <!-- Letakkan di folder yang sama dengan index asli, bersama logo.png dan halaman-halaman lokal. -->
+  <link rel="icon" type="image/png" href="logo.png">
   <style>
-    :root {
-      --ink:#1E2B22;
-      --paper:#F1F0E6;
-      --paper-line:#DAD7C6;
-      --forest:#2F4A3C;
-      --forest-dark:#1E3129;
-      --moss:#7C9473;
-      --soil:#8B5A3C;
-      --sky:#4C7A93;
-      --danger:#A8432E;
-      --white:#FCFBF6;
+    :root{
+      color-scheme:dark;
+      --bg:#06120e;--bg2:#0b241a;--surface:rgba(255,255,255,.062);
+      --surface-strong:rgba(255,255,255,.09);--line:rgba(226,255,236,.12);
+      --white:#f6fff8;--muted:#a9c3b3;--faint:#739687;
+      --mint:#88e4ae;--mint-bright:#abf4c8;--gold:#eacb8d;
+      --radius:26px;--shadow:0 28px 85px rgba(0,0,0,.34);
     }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at 50% -12%,rgba(112,218,156,.17),transparent 34%),
+        radial-gradient(circle at 6% 35%,rgba(46,105,70,.19),transparent 28%),
+        radial-gradient(circle at 91% 75%,rgba(48,104,74,.12),transparent 25%),
+        linear-gradient(155deg,#071712 2%,#0b2018 56%,#040c09 100%);
+      overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+      background:linear-gradient(rgba(255,255,255,.017) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.017) 1px,transparent 1px);
+      background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 94%)}
+    [hidden]{display:none!important}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button{color:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
+    button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+    .shell{width:min(1170px,calc(100% - 44px));margin-inline:auto;position:relative;z-index:1}
+    .svg-icon{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+    .brand{display:flex;align-items:center;gap:13px;min-width:0}
+    .brand-logo{width:46px;height:46px;flex:none;position:relative;border-radius:15px;display:grid;place-items:center;overflow:hidden;
+      background:linear-gradient(145deg,rgba(158,255,196,.16),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.16)}
+    .brand-logo .fallback{font-size:13px;font-weight:900;letter-spacing:-.07em;color:var(--mint)}
+    .brand-logo img{position:absolute;width:100%;height:100%;object-fit:contain;padding:5px;inset:0}
+    .brand-text{display:flex;flex-direction:column;gap:3px;line-height:1.15}
+    .brand-text strong{font-size:13px;letter-spacing:.045em;font-weight:850}
+    .brand-text small{font-size:11px;letter-spacing:.02em;color:var(--muted)}
+    .tagline-pill{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--line);border-radius:100px;
+      color:#bdd6c8;background:rgba(255,255,255,.035);font-size:11px;letter-spacing:.035em;backdrop-filter:blur(12px)}
+    .live-dot{width:7px;height:7px;display:inline-block;border-radius:100%;background:var(--mint);box-shadow:0 0 14px rgba(130,238,174,.65)}
+    /* INTRO: identitas visual BERANDA — panggung gelap, pintu tiga dimensi. */
+    .intro{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;position:relative;isolation:isolate}
+    .intro::after{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;
+      background:radial-gradient(circle at 50% 64%,rgba(195,229,187,.065),transparent 30%)}
+    .intro-top{width:min(1170px,calc(100% - 44px));margin:0 auto;padding-top:26px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .header-actions{display:flex;align-items:center;gap:12px}
+    .outline-small{min-height:40px;padding:0 16px;display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.19);
+      border-radius:12px;background:rgba(255,255,255,.04);font-weight:700;font-size:12px;cursor:pointer;transition:background .2s}
+    .outline-small:hover{background:rgba(255,255,255,.1)}
+    .intro-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+      padding:30px 20px 36px;min-height:0;position:relative}
+    .overline{display:inline-flex;align-items:center;gap:10px;margin:0 0 15px;text-transform:uppercase;letter-spacing:.22em;
+      font-size:11px;font-weight:700;color:var(--muted)}
+    .overline::before,.overline::after{content:"";height:1px;width:24px;background:rgba(136,228,174,.55)}
+    .hero-title{font-size:clamp(48px,8.3vw,112px);font-weight:950;letter-spacing:-.075em;line-height:.94;margin:0;text-wrap:balance}
+    .hero-title span{color:var(--mint);text-shadow:0 0 52px rgba(89,217,143,.14);display:inline-block;margin-left:.10em}
+    .hero-sub{font-size:clamp(16px,2.2vw,23px);font-weight:650;letter-spacing:-.025em;margin:15px 0 0}
+    .hero-description{font-size:13px;color:var(--muted);line-height:1.65;max-width:490px;margin:9px 0 0}
+    .door-zone{position:relative;display:grid;place-items:center;width:min(470px,100%);height:clamp(300px,42vh,400px);margin-top:2px;perspective:900px}
+    .spotlight{position:absolute;inset:-16% -24%;background:radial-gradient(ellipse at center,rgba(243,225,176,.14),transparent 60%);filter:blur(15px);
+      pointer-events:none;animation:halo-breathe 5s ease-in-out infinite}
+    .door-floor{position:absolute;width:75%;height:50px;bottom:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.72),transparent 70%);filter:blur(5px)}
+    .door-button{position:relative;border:0;outline:0;background:none;padding:0;cursor:pointer;z-index:1;transform-style:preserve-3d;perspective:900px}
+    .door-frame{width:clamp(184px,25vw,236px);height:clamp(260px,34vw,335px);padding:12px;border-radius:125px 125px 24px 24px;
+      border:1px solid rgba(255,255,255,.28);background:linear-gradient(140deg,rgba(255,255,255,.30),rgba(255,255,255,.075));
+      backdrop-filter:blur(9px);box-shadow:0 27px 80px rgba(0,0,0,.42),0 0 50px rgba(233,214,160,.045),inset 0 1px 0 rgba(255,255,255,.19);
+      transform:rotateY(-6deg);transition:transform .44s ease,box-shadow .44s ease;transform-style:preserve-3d}
+    .door-button:hover .door-frame{transform:rotateY(-1deg) translateY(-7px) scale(1.014);box-shadow:0 33px 85px rgba(0,0,0,.5),0 0 60px rgba(233,214,160,.085)}
+    .door-panel{height:100%;width:100%;position:relative;overflow:hidden;border-radius:115px 115px 16px 16px;
+      border:1px solid rgba(115,91,54,.19);
+      background:radial-gradient(circle at 27% 17%,rgba(255,255,255,.60),transparent 30%),linear-gradient(145deg,#f5efdf,#e8dac0 55%,#c7af87);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.20),inset 0 -18px 33px rgba(87,66,32,.14);transform-origin:left center;
+      transition:transform .68s cubic-bezier(.19,.9,.23,1),box-shadow .35s}
+    .door-panel::before{content:"";position:absolute;inset:16px;border:1px solid rgba(122,91,50,.19);border-radius:105px 105px 11px 11px}
+    .door-panel::after{content:"";position:absolute;inset:33px 37px;border:1px solid rgba(122,91,50,.14);border-radius:87px 87px 9px 9px}
+    .door-monogram{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);z-index:1;color:#4a664c;text-align:center;
+      font-size:27px;font-weight:950;letter-spacing:-.08em;line-height:1}
+    .door-monogram small{font-size:8px;letter-spacing:.16em;display:block;margin-top:9px;color:#7f816e;font-weight:750;white-space:nowrap}
+    .door-handle{position:absolute;right:20px;top:53%;height:42px;width:12px;border-radius:100px;
+      background:linear-gradient(#dcb674,#8d6526);box-shadow:inset -2px 0 2px rgba(78,51,10,.27),0 5px 12px rgba(68,46,22,.24)}
+    .door-button.opening .door-panel{transform:rotateY(-72deg)}
+    .door-button.opening .door-frame{transform:translateY(-5px) scale(1.055)}
+    .door-hint{border:0;background:none;color:var(--muted);font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+      display:flex;align-items:center;gap:8px;cursor:pointer;font-size:10px;margin-top:0;padding:12px;animation:hint-fade 2.8s ease-in-out infinite}
+    .door-hint .svg-icon{width:17px;height:17px}
+    .intro-bottom{position:absolute;bottom:19px;left:50%;transform:translateX(-50%);width:max-content;max-width:90vw;font-size:10px;letter-spacing:.1em;
+      text-transform:uppercase;color:#688979}
+    @keyframes halo-breathe{50%{opacity:.65;transform:scale(1.08)}}
+    @keyframes hint-fade{50%{opacity:.56}}
+    @keyframes reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .intro-inner>*{animation:reveal .7s both}
+    .intro-inner>*:nth-child(2){animation-delay:.08s}.intro-inner>*:nth-child(3){animation-delay:.14s}
+    .intro-inner>*:nth-child(4){animation-delay:.2s}.intro-inner>*:nth-child(5){animation-delay:.28s}
+    /* PORTAL */
+    .portal{min-height:100vh;animation:portal-in .48s both;padding-bottom:28px}
+    @keyframes portal-in{from{opacity:0;transform:scale(.987)}to{opacity:1;transform:scale(1)}}
+    .portal-header{padding:28px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}
+    .portal-header-tools{display:flex;align-items:center;gap:10px}
+    .back-btn{display:inline-flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;border:1px solid var(--line);
+      background:var(--surface);color:var(--white);font-size:12px;font-weight:750;cursor:pointer;transition:background .2s}
+    .back-btn:hover{background:var(--surface-strong)}
+    .back-btn .svg-icon{width:18px;height:18px}
+    .section-head{padding:49px 0 26px;display:flex;justify-content:space-between;align-items:flex-end;gap:22px}
+    .mini-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.19em;font-weight:800;color:var(--mint)}
+    .section-head h2{margin:12px 0 10px;font-size:clamp(37px,5.5vw,66px);font-weight:880;letter-spacing:-.065em;line-height:1.02}
+    .section-head h2 span{color:var(--mint)}
+    .section-head p{max-width:620px;color:var(--muted);line-height:1.65;font-size:14px;margin:0}
+    .count-pill{align-self:end;margin-bottom:3px;white-space:nowrap;color:#c5e2d1;background:rgba(142,230,179,.075);
+      border:1px solid rgba(142,230,179,.17);padding:12px 16px;border-radius:14px;font-size:12px;font-weight:750}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:8px 0 34px}
+    .search-wrap{position:relative;flex:1;min-width:220px;max-width:380px}
+    .search-wrap .svg-icon{position:absolute;top:50%;left:15px;transform:translateY(-50%);color:var(--muted);width:19px;height:19px}
+    .search{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;padding:10px 14px 10px 45px;
+      background:rgba(255,255,255,.045);color:var(--white);outline:none}
+    .search::placeholder{color:#7e998d}
+    .search:focus{border-color:rgba(138,234,180,.54);box-shadow:0 0 0 3px rgba(138,234,180,.10)}
+    .filter-list{display:flex;gap:7px;flex-wrap:wrap}
+    .filter{min-height:42px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.035);
+      color:#a9c3b3;font-size:12px;font-weight:720;cursor:pointer;transition:background .2s,transform .2s,color .2s}
+    .filter:hover{color:var(--white);background:rgba(255,255,255,.09)}
+    .filter[aria-pressed="true"]{background:var(--mint);color:#0a2116;border-color:transparent;box-shadow:0 5px 26px rgba(136,228,174,.13)}
+    .group{margin:0 0 36px}
+    .group-heading{display:flex;align-items:center;gap:14px;margin:0 0 15px}
+    .group-heading h3{font-size:13px;font-weight:820;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;color:#c1d9c8;margin:0}
+    .group-heading::after{content:"";height:1px;background:var(--line);flex:1}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .service-card{--card-accent:var(--mint);display:flex;flex-direction:column;min-height:238px;padding:24px;border-radius:24px;
+      position:relative;isolation:isolate;overflow:hidden;
+      border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.089),rgba(255,255,255,.028));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.045);transition:transform .25s,border-color .25s,box-shadow .25s}
+    .service-card::before{content:"";position:absolute;z-index:-1;width:200px;height:200px;border-radius:50%;right:-110px;top:-130px;
+      background:radial-gradient(circle,color-mix(in srgb,var(--card-accent) 20%,transparent),transparent 70%);transition:transform .3s}
+    .service-card:hover{transform:translateY(-5px);border-color:rgba(180,255,208,.35);box-shadow:0 18px 48px rgba(0,0,0,.17)}
+    .service-card:hover::before{transform:scale(1.5)}
+    .service-card:focus-visible{outline-offset:2px}
+    .service-card[data-category="formulir"]{--card-accent:#94c5ff}
+    .service-card[data-category="helpdesk"]{--card-accent:#9be6c4}
+    .service-card[data-category="edukasi"]{--card-accent:#eccb8b}
+    .service-card[data-category="lokasi"]{--card-accent:#e9b8a0}
+    .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:19px}
+    .card-icon{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;
+      background:color-mix(in srgb,var(--card-accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--card-accent) 24%,transparent);color:var(--card-accent)}
+    .card-icon .svg-icon{width:26px;height:26px;stroke-width:1.7}
+    .card-tag{color:#b6cfc0;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.045);
+      border-radius:100px;padding:7px 10px;font-size:10px;letter-spacing:.02em;font-weight:750}
+    .service-card h4{font-size:19px;font-weight:840;letter-spacing:-.035em;line-height:1.2;margin:0 0 9px}
+    .service-card p{font-size:12.5px;line-height:1.62;color:var(--muted);margin:0 0 23px;flex:1}
+    .card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid rgba(255,255,255,.085);
+      padding-top:15px;color:#d9f3e4;font-size:12px;font-weight:760}
+    .card-bottom .svg-icon{width:19px;height:19px;color:var(--card-accent);transition:transform .2s}
+    .service-card:hover .card-bottom .svg-icon{transform:translate(3px,-3px)}
+    .empty-state{border:1px dashed rgba(255,255,255,.2);border-radius:20px;text-align:center;padding:52px 18px;color:var(--muted)}
+    .empty-state strong{display:block;color:var(--white);font-size:17px;margin:0 0 8px}
+    .footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:20px 0 0;color:#79988a;font-size:11px;line-height:1.6}
+    .footer span:last-child{text-align:right}
+    /* WIDGET KUALITAS UDARA: mempertahankan API dari landing page asli. */
+    .aqi-fab{position:fixed;z-index:30;right:22px;bottom:23px;min-height:48px;border:1px solid rgba(207,255,227,.19);
+      background:rgba(20,52,38,.94);backdrop-filter:blur(18px);color:var(--white);border-radius:16px;
+      padding:0 16px;display:flex;align-items:center;gap:11px;box-shadow:0 15px 40px rgba(0,0,0,.32);
+      font-weight:770;font-size:12px;cursor:pointer;transition:transform .2s,background .2s}
+    .aqi-fab:hover{background:rgba(33,73,52,.98);transform:translateY(-2px)}
+    .aqi-fab .svg-icon{width:18px;height:18px;color:var(--mint)}
+    .aqi-dot{width:8px;height:8px;border-radius:50%;background:#8a9d90}
+    .aqi-dot.loaded{background:var(--aqi-color,#8a9d90);box-shadow:0 0 12px var(--aqi-color,#8a9d90)}
+    .aqi-panel{position:fixed;z-index:31;right:22px;bottom:82px;width:min(355px,calc(100vw - 32px));max-height:calc(100dvh - 110px);overflow:auto;
+      background:linear-gradient(152deg,#1a3528,#102219);border:1px solid rgba(214,255,228,.18);border-radius:24px;
+      padding:24px;box-shadow:0 25px 65px rgba(0,0,0,.50),inset 0 1px 0 rgba(255,255,255,.05);animation:reveal .2s both}
+    .aqi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .aqi-label{margin:0;color:var(--mint);text-transform:uppercase;letter-spacing:.13em;font-weight:840;font-size:10px}
+    .aqi-top h3{font-size:21px;letter-spacing:-.045em;margin:5px 0 2px}
+    .aqi-close{width:32px;height:32px;border:1px solid rgba(255,255,255,.13);border-radius:10px;cursor:pointer;
+      background:rgba(255,255,255,.05);display:grid;place-items:center;font-size:18px}
+    .aqi-station{color:var(--muted);margin:15px 0 10px;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+    .aqi-reading{display:flex;align-items:center;gap:15px;margin:0 0 6px}
+    .aqi-number{font-size:61px;font-weight:880;line-height:1;letter-spacing:-.07em}
+    .aqi-level{background:var(--aqi-color,#64796c);padding:7px 10px;border-radius:10px;font-size:11px;font-weight:800;color:#fff}
+    .aqi-update{font-size:11px;color:var(--muted);margin:12px 0 0}
+    .aqi-note{font-size:11px;color:#79998a;border-top:1px solid rgba(255,255,255,.09);margin:16px 0 0;padding-top:14px;line-height:1.6}
+    .aqi-loading,.aqi-error{font-size:13px;color:var(--muted);margin:22px 0;line-height:1.6}
+    .aqi-retry{border:1px solid var(--line);background:rgba(255,255,255,.07);border-radius:10px;padding:9px 14px;font-size:12px;cursor:pointer}
+    @media(max-width:920px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{align-items:stretch}.search-wrap{max-width:none;width:100%;flex-basis:100%}.filter-list{flex:1}}
+    @media(max-width:620px){
+      .shell{width:min(100% - 32px,1170px)}.intro-top{width:calc(100% - 32px);padding-top:19px}
+      .brand-logo{width:40px;height:40px;border-radius:12px}.brand-text strong{font-size:11px}.brand-text small{font-size:10px}
+      .tagline-pill{display:none}.intro-inner{padding:24px 16px 46px;justify-content:center}
+      .overline{font-size:9px;letter-spacing:.14em;margin-bottom:17px}.overline::before,.overline::after{width:13px}
+      .hero-title{font-size:clamp(48px,13vw,72px);line-height:1;letter-spacing:-.073em}.hero-title span{margin-left:0}
+      .hero-sub{font-size:17px;margin-top:17px}.hero-description{font-size:12px;max-width:330px}
+      .door-zone{height:clamp(285px,43vh,360px);margin-top:0}.door-frame{width:190px;height:274px}
+      .door-hint{margin-top:-5px}.intro-bottom{display:none}
+      .portal-header{padding:18px 0}.portal-header .brand-text small{font-size:9px}.back-btn{padding:11px 13px;font-size:11px}
+      .section-head{padding:35px 0 26px;align-items:flex-start;flex-direction:column;gap:16px}
+      .section-head h2{font-size:44px}.section-head p{font-size:13px}.count-pill{margin:0}
+      .toolbar{margin-bottom:31px}.filter-list{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+      .filter{flex:none;min-height:40px;padding:0 12px}.cards{grid-template-columns:1fr;gap:12px}
+      .service-card{min-height:213px;padding:20px;border-radius:21px}.group{margin-bottom:31px}
+      .footer{flex-direction:column;gap:4px;padding-bottom:60px}.footer span:last-child{text-align:left}
+      .aqi-fab{right:14px;bottom:14px;border-radius:14px;padding:0 13px;min-height:46px}
+      .aqi-panel{right:14px;bottom:70px;padding:20px}
+    }
+    @media(max-height:650px) and (min-width:621px){
+      .intro-inner{padding:10px 15px}.intro-top{padding-top:14px}.overline{margin-bottom:7px}
+      .hero-title{font-size:clamp(43px,7vw,78px)}.hero-sub{margin-top:7px}.hero-description{margin-top:4px}
+      .door-zone{height:270px}.door-frame{width:170px;height:242px}.door-hint{padding:3px}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
-    * { box-sizing: border-box; }
-
-    html, body { overflow-x: hidden; }
-
-    body {
-      margin: 0;
-      font-family: 'IBM Plex Sans', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
-      background-size: 100% 32px;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 32px 16px;
+    /* ===== TEMA CERAH UNTUK LAYANAN PUBLIK =====
+       Menimpa warna tema internal gelap tanpa mengubah alur/tautan/aplikasi. */
+    :root{
+      color-scheme:light;
+      --bg:#f4f9ff;
+      --bg2:#fefcff;
+      --surface:rgba(255,255,255,.82);
+      --surface-strong:#fff;
+      --line:rgba(48,81,134,.14);
+      --white:#182b4a;
+      --muted:#5e718a;
+      --faint:#7386a2;
+      --mint:#255fd3;
+      --mint-bright:#407bef;
+      --gold:#ffbd62;
+      --shadow:0 25px 60px rgba(46,83,141,.13);
     }
-
-    .container {
-      background: var(--white);
-      border: 1px solid var(--ink);
-      box-shadow: 6px 6px 0 rgba(30,43,34,0.08);
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
-      padding: 36px 26px 28px;
-      height: fit-content;
+    body{
+      background:
+        radial-gradient(circle at 12% 14%,rgba(255,210,137,.38) 0,transparent 23%),
+        radial-gradient(circle at 87% 20%,rgba(131,190,255,.47) 0,transparent 33%),
+        radial-gradient(circle at 16% 74%,rgba(235,205,255,.36) 0,transparent 30%),
+        linear-gradient(145deg,#fffcf7 0%,#edf7ff 48%,#f8f6ff 100%);
     }
-
-    .logo-area img {
-      width: 68px;
-      margin-bottom: 14px;
+    body::before{
+      background:linear-gradient(rgba(39,107,187,.034) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(39,107,187,.034) 1px,transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(to bottom,#000,transparent 92%);
     }
-
-    .eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--sky);
-      margin: 0 0 6px;
+    button:focus-visible,a:focus-visible,input:focus-visible{outline-color:#2365d7}
+    .brand-logo{
+      background:linear-gradient(145deg,#fff,#e6f1ff);
+      border:1px solid rgba(72,115,177,.15);
+      box-shadow:0 7px 21px rgba(55,112,178,.10);
     }
-
-    h1 {
-      margin: 0;
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      font-size: 24px;
-      color: var(--forest-dark);
-      line-height: 1.2;
+    .brand-logo .fallback{color:#245dc5}
+    .brand-text strong{color:#253b60}
+    .brand-text small{color:#70829c}
+    .tagline-pill{color:#3a5f9d;background:rgba(255,255,255,.72);border-color:rgba(49,103,183,.17)}
+    .live-dot{background:#ffad52;box-shadow:0 0 13px rgba(255,183,81,.38)}
+    .outline-small{color:#2456ac;background:rgba(255,255,255,.8);border-color:rgba(45,95,175,.2);box-shadow:0 5px 20px rgba(39,91,164,.06)}
+    .outline-small:hover{background:#fff;border-color:rgba(45,95,175,.4)}
+    .intro{overflow:hidden}
+    .intro::after{background:
+      radial-gradient(circle at 50% 63%,rgba(255,195,98,.20),transparent 33%),
+      radial-gradient(circle at 47% 47%,rgba(128,190,255,.20),transparent 44%)}
+    .overline{color:#617a9e}
+    .overline::before,.overline::after{background:rgba(48,103,186,.34)}
+    .hero-title{color:#1b3154}
+    .hero-title span{color:#2a68df;text-shadow:none}
+    .hero-sub{color:#27466d}
+    .hero-description{color:#647b98}
+    .spotlight{background:radial-gradient(ellipse at center,rgba(255,202,111,.36),rgba(144,199,255,.13) 35%,transparent 68%)}
+    .door-floor{background:radial-gradient(ellipse at center,rgba(69,102,156,.25),transparent 71%)}
+    .door-frame{
+      border:1px solid rgba(71,119,201,.29);
+      background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(190,217,255,.55));
+      box-shadow:0 22px 55px rgba(48,100,178,.20),0 0 65px rgba(255,188,109,.18),inset 0 1px 0 rgba(255,255,255,.9);
     }
-
-    h2 {
-      margin: 6px 0 0;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 11.5px;
-      font-weight: 500;
-      color: #5B6A5E;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+    .door-button:hover .door-frame{box-shadow:0 28px 65px rgba(48,100,178,.25),0 0 70px rgba(255,188,109,.22)}
+    .door-panel{
+      border:1px solid rgba(177,122,48,.22);
+      background:radial-gradient(circle at 25% 17%,rgba(255,255,255,.74),transparent 34%),
+        linear-gradient(145deg,#fff9e8 0%,#ffe3a6 58%,#ffc980 100%);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.57),inset 0 -18px 33px rgba(158,102,32,.10);
     }
-
-    .contour {
-      width: 100%;
-      height: 40px;
-      margin: 18px 0 22px;
+    .door-panel::before{border-color:rgba(184,121,49,.20)}
+    .door-panel::after{border-color:rgba(184,121,49,.12)}
+    .door-monogram{color:#2a5dae}
+    .door-monogram small{color:#9b7354}
+    .door-handle{background:linear-gradient(#ff987e,#ef6e63);box-shadow:inset -2px 0 2px rgba(122,55,41,.13),0 5px 12px rgba(202,103,70,.22)}
+    .door-hint{
+      color:white;background:#2b65d5;border:1px solid #2b65d5;border-radius:999px;
+      box-shadow:0 9px 24px rgba(42,100,201,.20);
+      padding:12px 19px;letter-spacing:.085em;margin-top:4px;
     }
-
-    .menu-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: left;
+    .door-hint:hover{background:#174eae;transform:translateY(-2px)}
+    .intro-bottom{color:#7289a9}
+    .back-btn{background:#fff;border-color:rgba(57,109,175,.2);box-shadow:0 7px 20px rgba(44,95,170,.07)}
+    .back-btn:hover{background:#eaf3ff}
+    .mini-eyebrow{color:#376cc7}
+    .section-head h2,.section-head h2 span{color:#213a65}
+    .section-head h2 span{color:#2f6dde}
+    .section-head p{color:#627792}
+    .count-pill{color:#2555a9;background:#e7f0ff;border-color:#c8dcff}
+    .search{background:#fff;color:#263c5b;border:1px solid rgba(64,110,176,.2);box-shadow:0 5px 15px rgba(63,110,179,.05)}
+    .search::placeholder{color:#91a2b8}
+    .search:focus{border-color:#487ee1;box-shadow:0 0 0 4px rgba(71,126,225,.11)}
+    .filter{color:#526d93;background:rgba(255,255,255,.79);border-color:rgba(61,111,180,.16)}
+    .filter:hover{color:#2457a5;background:#e6f1ff}
+    .filter[aria-pressed="true"]{background:#2a65d2;border-color:#2a65d2;color:#fff;box-shadow:0 5px 21px rgba(36,96,204,.2)}
+    .group-heading h3{color:#4a668b}
+    .service-card{
+      background:linear-gradient(151deg,#fff 0%,#fbfdff 100%);
+      border:1px solid rgba(69,112,168,.17);
+      box-shadow:0 8px 22px rgba(47,91,147,.065),inset 0 1px 0 #fff;
     }
-
-    .card-btn {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      padding: 13px 14px;
-      border: 1px solid var(--paper-line);
-      border-left: 3px solid var(--accent, var(--forest));
-      background: var(--paper);
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-
-    .card-btn:hover {
-      transform: translateX(2px);
-      box-shadow: 3px 3px 0 rgba(30,43,34,0.08);
-    }
-
-    .icon-box {
-      width: 36px;
-      height: 36px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: var(--accent, var(--forest));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 13px;
-      font-size: 15px;
-      color: var(--white);
-    }
-
-    .text-box { flex: 1; min-width: 0; }
-
-    .title {
-      display: block;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 600;
-      font-size: 13.5px;
-      color: var(--ink);
-      margin-bottom: 2px;
-    }
-
-    .subtitle {
-      display: block;
-      font-size: 11px;
-      color: #6B7A6E;
-      line-height: 1.35;
-    }
-
-    .wa   { --accent: var(--moss); }
-    .form { --accent: var(--sky); }
-    .game { --accent: #C9902E; }
-    .location { --accent: var(--soil); }
-
-    .group-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #8A9186;
-      margin: 18px 0 8px;
-      text-align: left;
-    }
-    .menu-list > .group-label:first-child { margin-top: 0; }
-
-    footer {
-      margin-top: 26px;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 10.5px;
-      color: #8A9186;
-      letter-spacing: .05em;
-    }
-
-    /* ===== Floating Air Quality Widget ===== */
-    .aqi-fab{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      background:var(--forest-dark);
-      color:var(--white);
-      border:none;
-      border-radius:999px;
-      padding:12px 16px;
-      font-family:'IBM Plex Mono', monospace;
-      font-size:11.5px;
-      letter-spacing:.03em;
-      cursor:pointer;
-      box-shadow:0 6px 16px rgba(30,43,34,0.35);
-    }
-    .aqi-fab .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:#8A9186;
-      flex-shrink:0;
-    }
-    .aqi-fab .dot.loaded{background:var(--aqi-color, #8A9186);}
-
-    .aqi-panel{
-      position:fixed;
-      right:16px;
-      bottom:76px;
-      z-index:50;
-      width:min(280px, calc(100vw - 32px));
-      background:var(--white);
-      border:1px solid var(--ink);
-      box-shadow:6px 6px 0 rgba(30,43,34,0.12);
-      padding:18px;
-      display:none;
-    }
-    .aqi-panel.show{display:block;}
-    .aqi-panel .aqi-eyebrow{
-      font-family:'IBM Plex Mono', monospace;
-      font-size:10.5px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--sky);
-      margin:0 0 6px;
-    }
-    .aqi-panel .aqi-station{
-      font-size:12px;
-      color:#5B6A5E;
-      margin:0 0 14px;
-      line-height:1.4;
-    }
-    .aqi-panel .aqi-main{
-      display:flex;
-      align-items:baseline;
-      gap:10px;
-      margin-bottom:6px;
-    }
-    .aqi-panel .aqi-number{
-      font-family:'Fraunces', serif;
-      font-weight:600;
-      font-size:36px;
-      color:var(--ink);
-    }
-    .aqi-panel .aqi-category{
-      font-family:'IBM Plex Sans', sans-serif;
-      font-weight:600;
-      font-size:13px;
-      padding:3px 10px;
-      border-radius:999px;
-      color:var(--white);
-      background:var(--aqi-color, #8A9186);
-    }
-    .aqi-panel .aqi-updated{
-      font-size:10.5px;
-      color:#8A9186;
-      margin-top:10px;
-      font-family:'IBM Plex Mono', monospace;
-    }
-    .aqi-panel .aqi-loading, .aqi-panel .aqi-error{
-      font-size:12.5px;
-      color:#5B6A5E;
-      text-align:center;
-      padding:10px 0;
-    }
-    .aqi-panel .aqi-close{
-      position:absolute;
-      top:10px;right:12px;
-      background:none;border:none;
-      font-size:16px;color:#8A9186;
-      cursor:pointer;line-height:1;
+    .service-card:hover{border-color:#b4cdf9;box-shadow:0 20px 40px rgba(62,112,173,.14)}
+    .service-card[data-category="formulir"]{--card-accent:#346ed7}
+    .service-card[data-category="helpdesk"]{--card-accent:#b85bd8}
+    .service-card[data-category="edukasi"]{--card-accent:#ed9c30}
+    .service-card[data-category="lokasi"]{--card-accent:#ed765f}
+    .card-icon{background:color-mix(in srgb,var(--card-accent) 12%,white);border:1px solid color-mix(in srgb,var(--card-accent) 16%,white)}
+    .card-tag{color:#59728f;background:#f1f6fe;border:1px solid #e3ebf8}
+    .service-card h4{color:#203b61}
+    .service-card p{color:#687c94}
+    .card-bottom{color:#2457ad;border-top-color:#e7eff8}
+    .empty-state{background:#fff;border:1px dashed #bed0e9}
+    .empty-state strong{color:#203b61}
+    .footer{color:#778aa3}
+    .aqi-fab{background:#fff;border:1px solid #dbe6f5;color:#27446b;box-shadow:0 12px 34px rgba(45,85,143,.17)}
+    .aqi-fab:hover{background:#f0f6ff}
+    .aqi-fab .svg-icon{color:#3975dc}
+    .aqi-dot{background:#b0bfd0}
+    .aqi-panel{background:linear-gradient(151deg,#fff,#f4f8ff);border:1px solid #dbe5f4;box-shadow:0 22px 58px rgba(57,91,147,.20)}
+    .aqi-top h3{color:#213b60}
+    .aqi-label{color:#3571d0}
+    .aqi-close{background:#eaf2ff;border-color:#d8e6fc;color:#38639b}
+    .aqi-station,.aqi-loading,.aqi-error{color:#617894}
+    .aqi-number{color:#1c375c}
+    .aqi-update{color:#70839a}
+    .aqi-note{color:#778ca6;border-top-color:#e3ecf8}
+    .aqi-retry{background:#eaf2ff;border-color:#d0e1f8;color:#24549c}
+    @media(max-width:620px){
+      .door-hint{font-size:10px;padding:11px 15px}
+      .aqi-fab{right:14px;bottom:14px}
+      .aqi-panel{right:14px;bottom:70px}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo-area">
-      <img src="logo.png" alt="Logo DLH">
+  <!-- Ikon inline: tetap tampil tanpa Font Awesome dan internet. -->
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m7 7-7-7 7-7"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m10.3 3.9-8.2 14A2 2 0 0 0 3.8 21h16.4a2 2 0 0 0 1.7-3.1l-8.2-14a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4m0 4h.01"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14v-3a9 9 0 0 1 18 0v3M5 14h2v6H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2ZM17 14h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2v-6ZM21 18c0 3-3 4-6 4h-2"/></symbol>
+    <symbol id="i-recycle" viewBox="0 0 24 24"><path d="m7 7 2-4h5l2 4M8 3l2 4H6M19 10l3 4-3 4h-5M22 14h-5l2-4M9 21H5l-3-5 3-4M5 21l2-5H2"/></symbol>
+    <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 2h12M6 22h12M7 2v5a5 5 0 0 0 2 4l3 1 3-1a5 5 0 0 0 2-4V2M7 22v-5a5 5 0 0 1 2-4l3-1 3 1a5 5 0 0 1 2 4v5"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="m12 3-6 8h3l-5 7h16l-5-7h3l-6-8ZM12 18v4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.5"/><path d="m16.5 16.5 5 5"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M2 12h18a2 2 0 1 1-2 2M4 16h9a3 3 0 1 1-3 3"/></symbol>
+  </svg>
+
+  <section id="intro" class="intro" aria-label="Pintu masuk layanan DLH">
+    <header class="intro-top">
+      <div class="brand">
+        <div class="brand-logo"><span class="fallback">DLH</span><img src="logo.png" alt="" data-logo></div>
+        <span class="brand-text"><strong>DINAS LINGKUNGAN HIDUP</strong><small>Kabupaten Mojokerto</small></span>
+      </div>
+      <div class="header-actions">
+        <span class="tagline-pill"><span class="live-dot"></span> Portal layanan digital DLH</span>
+        <a class="outline-small" href="#layanan">Lihat Layanan <svg class="svg-icon" style="width:16px;height:16px"><use href="#i-arrow-right"/></svg></a>
+      </div>
+    </header>
+    <main class="intro-inner">
+      <p class="overline">Pemerintah Kabupaten Mojokerto</p>
+      <h1 class="hero-title">DLH <span>MOJOKERTO.</span></h1>
+      <p class="hero-sub">Layanan Lingkungan, Satu Pintu.</p>
+      <p class="hero-description">Informasi, pelayanan, dan edukasi lingkungan kini lebih mudah dijangkau. Pilih layanan yang kamu butuhkan melalui satu pintu.</p>
+      <div class="door-zone">
+        <div class="spotlight" aria-hidden="true"></div><div class="door-floor" aria-hidden="true"></div>
+        <button type="button" class="door-button" id="doorButton" aria-label="Klik pintu untuk masuk ke layanan DLH">
+          <div class="door-frame"><div class="door-panel"><div class="door-monogram">DLH<small>KAB. MOJOKERTO</small></div><div class="door-handle"></div></div></div>
+        </button>
+      </div>
+      <button type="button" class="door-hint" id="enterButton">Klik pintu untuk masuk <svg class="svg-icon"><use href="#i-arrow-right"/></svg></button>
+    </main>
+    <span class="intro-bottom">Layanan Publik · Edukasi · Informasi Lingkungan</span>
+  </section>
+
+  <main id="layanan" class="portal" hidden>
+    <div class="shell">
+      <header class="portal-header">
+        <div class="brand">
+          <div class="brand-logo"><span class="fallback">DLH</span><img src="logo.png" alt="" data-logo></div>
+          <span class="brand-text"><strong>DINAS LINGKUNGAN HIDUP</strong><small>Kabupaten Mojokerto</small></span>
+        </div>
+        <div class="portal-header-tools"><button class="back-btn" id="backButton" type="button">
+          <svg class="svg-icon"><use href="#i-arrow-left"/></svg> Kembali</button></div>
+      </header>
+      <section class="section-head" aria-labelledby="servicesTitle">
+        <div>
+          <span class="mini-eyebrow">PORTAL LAYANAN DLH KABUPATEN MOJOKERTO</span>
+          <h2 id="servicesTitle" tabindex="-1">Pilih <span>layananmu.</span></h2>
+          <p>Satu tempat untuk mengakses layanan, menghubungi bidang terkait, dan belajar menjaga lingkungan. Langsung pilih yang kamu perlukan.</p>
+        </div>
+        <span class="count-pill" id="serviceCount" aria-live="polite">7 layanan tersedia</span>
+      </section>
+      <nav class="toolbar" aria-label="Cari dan saring layanan">
+        <div class="search-wrap">
+          <svg class="svg-icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <input class="search" id="searchInput" type="search" placeholder="Cari layanan, misalnya magang..." autocomplete="off" aria-label="Cari layanan">
+        </div>
+        <div class="filter-list" id="filters" role="group" aria-label="Kategori layanan">
+          <button class="filter" type="button" data-filter="semua" aria-pressed="true">Semua</button>
+          <button class="filter" type="button" data-filter="formulir" aria-pressed="false">Formulir</button>
+          <button class="filter" type="button" data-filter="helpdesk" aria-pressed="false">Helpdesk</button>
+          <button class="filter" type="button" data-filter="edukasi" aria-pressed="false">Edukasi</button>
+          <button class="filter" type="button" data-filter="lokasi" aria-pressed="false">Lokasi</button>
+        </div>
+      </nav>
+
+      <section class="group" data-group aria-labelledby="group-formulir">
+        <div class="group-heading"><h3 id="group-formulir">01 / Formulir Online</h3></div>
+        <div class="cards">
+          <a class="service-card" href="magang.html?v=2" data-category="formulir" data-search="semai pendaftaran magang mahasiswa siswa siswi pkl praktik kerja lapangan">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-file"/></svg></div><span class="card-tag">Pendaftaran</span></div>
+            <h4>SEMAI — Pendaftaran Magang</h4>
+            <p>Sistem E-Magang &amp; Informasi bagi Mahasiswa dan Siswa/Siswi PKL.</p>
+            <div class="card-bottom"><span>Buka formulir</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+          <a class="service-card" href="https://damarmojo.lapor.go.id/" target="_blank" rel="noopener noreferrer" data-category="formulir" data-search="pelaporan aduan pencemaran lingkungan pelanggaran aspirasi pengaduan damarmojo lapor">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-alert"/></svg></div><span class="card-tag">Pengaduan</span></div>
+            <h4>Pelaporan / Aduan</h4>
+            <p>Saluran pengaduan dan pelaporan pencemaran lingkungan secara online.</p>
+            <div class="card-bottom"><span>Buka layanan</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="group" data-group aria-labelledby="group-helpdesk">
+        <div class="group-heading"><h3 id="group-helpdesk">02 / Bantuan &amp; Informasi</h3></div>
+        <div class="cards">
+          <a class="service-card" href="helpdesk.html" data-category="helpdesk" data-search="hubungi bidang terkait bantuan helpdesk tata lingkungan persampahan penaatan lingkungan hidup uptd laboratorium">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-headset"/></svg></div><span class="card-tag">Helpdesk</span></div>
+            <h4>Hubungi Bidang Terkait</h4>
+            <p>Tata Lingkungan, Persampahan, Penaatan Lingkungan Hidup, dan UPTD Laboratorium.</p>
+            <div class="card-bottom"><span>Hubungi petugas</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="group" data-group aria-labelledby="group-edukasi">
+        <div class="group-heading"><h3 id="group-edukasi">03 / Games &amp; Edukasi</h3></div>
+        <div class="cards">
+          <a class="service-card" href="pilah-sampah.html" data-category="edukasi" data-search="pilah sampah game edukasi organik anorganik b3 memilih jenis sampah">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-recycle"/></svg></div><span class="card-tag">Game Edukasi</span></div>
+            <h4>Pilah Sampah</h4>
+            <p>Belajar memilah sampah organik, anorganik, dan B3 lewat permainan interaktif.</p>
+            <div class="card-bottom"><span>Mulai bermain</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+          <a class="service-card" href="kuis-terurai.html" data-category="edukasi" data-search="berapa lama terurai kuis waktu penguraian sampah alam edukasi permainan">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-hourglass"/></svg></div><span class="card-tag">Kuis Interaktif</span></div>
+            <h4>Berapa Lama Terurai?</h4>
+            <p>Uji pengetahuanmu tentang berapa lama berbagai jenis sampah terurai di alam.</p>
+            <div class="card-bottom"><span>Mulai kuis</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+          <a class="service-card" href="kalkulator-pohon.html" data-category="edukasi" data-search="berapa pohon yang kamu selamatkan kalkulator estimasi kontribusi kebiasaan sehari hari pohon lingkungan">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-tree"/></svg></div><span class="card-tag">Kalkulator</span></div>
+            <h4>Berapa Pohon yang Kamu Selamatkan?</h4>
+            <p>Perkirakan kontribusi positif dari kebiasaan sehari-hari terhadap lingkungan.</p>
+            <div class="card-bottom"><span>Coba kalkulator</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="group" data-group aria-labelledby="group-lokasi">
+        <div class="group-heading"><h3 id="group-lokasi">04 / Kunjungi Kami</h3></div>
+        <div class="cards">
+          <a class="service-card" href="https://maps.app.goo.gl/bSE29YEavGSSoaG5A" target="_blank" rel="noopener noreferrer" data-category="lokasi" data-search="lokasi kantor alamat dinas lingkungan hidup jl pemuda no 55b kecamatan mojosari kabupaten mojokerto peta maps">
+            <div class="card-top"><div class="card-icon"><svg class="svg-icon"><use href="#i-pin"/></svg></div><span class="card-tag">Kantor DLH</span></div>
+            <h4>Lokasi Kantor</h4>
+            <p>Jl. Pemuda No. 55B, Kecamatan Mojosari, Kabupaten Mojokerto.</p>
+            <div class="card-bottom"><span>Lihat di Google Maps</span><svg class="svg-icon"><use href="#i-arrow-up-right"/></svg></div>
+          </a>
+        </div>
+      </section>
+
+      <div class="empty-state" id="emptyState" hidden><strong>Layanan tidak ditemukan.</strong>Coba gunakan kata kunci atau kategori lain.</div>
+      <footer class="footer"><span>© 2026 Dinas Lingkungan Hidup Kabupaten Mojokerto.</span><span>Untuk lingkungan yang lebih baik, dimulai dari sini.</span></footer>
     </div>
-    <p class="eyebrow">Pemerintah Kabupaten Mojokerto</p>
-    <h1>Dinas Lingkungan Hidup</h1>
-    <h2>Kabupaten Mojokerto</h2>
+  </main>
 
-    <svg class="contour" viewBox="0 0 300 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <g fill="none" stroke="#7C9473" stroke-width="1">
-        <path d="M0,30 C40,22 60,36 100,26 C140,16 160,30 200,20 C230,12 260,22 300,14" opacity="0.9"/>
-        <path d="M0,20 C40,12 60,26 100,16 C140,6 160,20 200,10 C230,2 260,12 300,4" opacity="0.45"/>
-      </g>
-    </svg>
-
-    <div class="menu-list">
-      <p class="group-label">Formulir Online</p>
-
-      <a href="magang.html?v=2" class="card-btn form">
-        <div class="icon-box"><i class="fas fa-clipboard-list"></i></div>
-        <div class="text-box">
-          <span class="title">SEMAI — Pendaftaran Magang</span>
-          <span class="subtitle">Sistem E-Magang & Informasi bagi Mahasiswa dan Siswa/Siswi PKL</span>
-        </div>
-      </a>
-
-      <a href="https://damarmojo.lapor.go.id/" class="card-btn form">
-        <div class="icon-box"><i class="fas fa-exclamation-triangle"></i></div>
-        <div class="text-box">
-          <span class="title">Pelaporan / Aduan</span>
-          <span class="subtitle">Formulir online pelaporan pencemaran lingkungan</span>
-        </div>
-      </a>
-
-      <p class="group-label">Helpdesk</p>
-
-      <a href="helpdesk.html" class="card-btn wa">
-        <div class="icon-box"><i class="fas fa-headset"></i></div>
-        <div class="text-box">
-          <span class="title">Hubungi Bidang Terkait</span>
-          <span class="subtitle">Tata Lingkungan, Persampahan, Penaatan LH, UPTD Lab</span>
-        </div>
-      </a>
-
-      <p class="group-label">Games &amp; Edukasi</p>
-
-      <a href="pilah-sampah.html" class="card-btn game">
-        <div class="icon-box"><i class="fas fa-gamepad"></i></div>
-        <div class="text-box">
-          <span class="title">Pilah Sampah</span>
-          <span class="subtitle">Game edukasi memilah sampah organik, anorganik, dan B3</span>
-        </div>
-      </a>
-
-      <a href="kuis-terurai.html" class="card-btn game">
-        <div class="icon-box"><i class="fas fa-hourglass-half"></i></div>
-        <div class="text-box">
-          <span class="title">Berapa Lama Terurai?</span>
-          <span class="subtitle">Kuis tebak waktu penguraian sampah di alam</span>
-        </div>
-      </a>
-
-      <a href="kalkulator-pohon.html" class="card-btn game">
-        <div class="icon-box"><i class="fas fa-tree"></i></div>
-        <div class="text-box">
-          <span class="title">Berapa Pohon yang Kamu Selamatkan?</span>
-          <span class="subtitle">Kalkulator estimasi kontribusi dari kebiasaan sehari-hari</span>
-        </div>
-      </a>
-
-      <p class="group-label">Lokasi</p>
-
-      <a href="https://maps.app.goo.gl/bSE29YEavGSSoaG5A" class="card-btn location">
-        <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
-        <div class="text-box">
-          <span class="title">Lokasi Kantor</span>
-          <span class="subtitle">Jl. Pemuda No 55B, Kecamatan Mojosari, Kabupaten Mojokerto</span>
-        </div>
-      </a>
-    </div>
-
-    <footer>&copy; 2026 DINAS LINGKUNGAN HIDUP</footer>
-  </div>
-
-  <!-- ===== Floating Air Quality Widget ===== -->
-  <button class="aqi-fab" id="aqiFab">
-    <span class="dot" id="aqiDot"></span>
-    <span>Kualitas Udara</span>
+  <button id="aqiFab" type="button" class="aqi-fab" aria-controls="aqiPanel" aria-expanded="false">
+    <svg class="svg-icon" aria-hidden="true"><use href="#i-wind"/></svg><span>Kualitas Udara</span><span id="aqiDot" class="aqi-dot" aria-hidden="true"></span>
   </button>
-
-  <div class="aqi-panel" id="aqiPanel">
-    <button class="aqi-close" id="aqiClose">&times;</button>
-    <p class="aqi-eyebrow">Kualitas Udara Terkini</p>
-    <div id="aqiContent">
-      <p class="aqi-loading">Memuat data...</p>
-    </div>
-  </div>
+  <aside id="aqiPanel" class="aqi-panel" aria-label="Informasi kualitas udara" hidden>
+    <div class="aqi-top"><div><p class="aqi-label">Pemantauan udara</p><h3>Kualitas Udara</h3></div><button id="aqiClose" class="aqi-close" type="button" aria-label="Tutup panel kualitas udara">×</button></div>
+    <div id="aqiContent" role="status" aria-live="polite"><p class="aqi-loading">Klik tombol kualitas udara untuk memuat data.</p></div>
+    <p class="aqi-note">Sumber: WAQI / AQICN. Informasi mengikuti stasiun yang dipilih penyedia data dan tidak selalu mewakili kondisi seluruh Kabupaten Mojokerto.</p>
+  </aside>
 
   <script>
-    // GANTI dengan token gratis dari https://aqicn.org/data-platform/token/
-    const AQI_TOKEN = "57b91b455311af18d3c76b31ebcbcc2030d7b4e2";
-    // Koordinat sekitar Kabupaten Mojokerto (Mojosari) — stasiun terdekat otomatis dipilih
+    'use strict';
+    // Konfigurasi widget WAQI, diambil dari landing page asli.
+    // Token ini akan terlihat publik jika dipasang pada situs statis; gunakan proxy server jika ingin merahasiakannya.
+    const AQI_TOKEN = '57b91b455311af18d3c76b31ebcbcc2030d7b4e2';
     const AQI_LAT = -7.5333;
     const AQI_LON = 112.4500;
 
+    // Fallback logo jika logo.png belum ada di folder yang sama.
+    document.querySelectorAll('img[data-logo]').forEach(img => {
+      img.addEventListener('error', () => { img.hidden = true; });
+      if (img.complete && img.naturalWidth === 0) img.hidden = true;
+    });
+
+    const intro = document.getElementById('intro');
+    const portal = document.getElementById('layanan');
+    const doorButton = document.getElementById('doorButton');
+    let isOpening = false;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function showView(){
+      const showPortal = window.location.hash === '#layanan';
+      intro.hidden = showPortal;
+      portal.hidden = !showPortal;
+      isOpening = false;
+      doorButton.classList.remove('opening');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (showPortal) document.getElementById('servicesTitle').focus({ preventScroll: true });
+    }
+    function enterPortal(){
+      if (isOpening) return;
+      if (prefersReducedMotion){ window.location.hash = 'layanan'; return; }
+      isOpening = true;
+      doorButton.classList.add('opening');
+      setTimeout(() => { window.location.hash = 'layanan'; showView(); }, 650);
+    }
+    doorButton.addEventListener('click',enterPortal);
+    document.getElementById('enterButton').addEventListener('click',enterPortal);
+    document.getElementById('backButton').addEventListener('click',() => {
+      if (window.location.hash) window.location.hash = '';
+      showView();
+    });
+    window.addEventListener('hashchange',showView);
+    window.addEventListener('popstate',showView);
+    showView();
+
+    // Pencarian dan filter bekerja pada kartu asli, tanpa mengubah URL apa pun.
+    const cards = [...document.querySelectorAll('.service-card')];
+    const groups = [...document.querySelectorAll('[data-group]')];
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = [...document.querySelectorAll('[data-filter]')];
+    let currentFilter = 'semua';
+    function updateCards(){
+      const q = searchInput.value.trim().toLocaleLowerCase('id-ID');
+      let count = 0;
+      for(const card of cards){
+        const catMatch = currentFilter === 'semua' || card.dataset.category === currentFilter;
+        const textMatch = !q || (card.textContent + ' ' + card.dataset.search).toLocaleLowerCase('id-ID').includes(q);
+        card.hidden = !(catMatch && textMatch);
+        if (!card.hidden) count++;
+      }
+      for(const group of groups) group.hidden = !group.querySelector('.service-card:not([hidden])');
+      document.getElementById('serviceCount').textContent = `${count} layanan ditemukan`;
+      document.getElementById('emptyState').hidden = count !== 0;
+    }
+    searchInput.addEventListener('input',updateCards);
+    for(const button of filterButtons){
+      button.addEventListener('click',() => {
+        currentFilter = button.dataset.filter;
+        for(const other of filterButtons) other.setAttribute('aria-pressed',String(other === button));
+        updateCards();
+      });
+    }
+
+    // Kualitas udara tetap diambil on-demand saat panel dibuka.
     const aqiFab = document.getElementById('aqiFab');
     const aqiPanel = document.getElementById('aqiPanel');
-    const aqiClose = document.getElementById('aqiClose');
     const aqiDot = document.getElementById('aqiDot');
     const aqiContent = document.getElementById('aqiContent');
-
     let aqiLoaded = false;
-
-    function aqiCategory(aqi){
-      if (aqi <= 50) return { label: 'Baik', color: '#5FAE52' };
-      if (aqi <= 100) return { label: 'Sedang', color: '#D9B23C' };
-      if (aqi <= 150) return { label: 'Tidak Sehat (Sensitif)', color: '#E08A3C' };
-      if (aqi <= 200) return { label: 'Tidak Sehat', color: '#D9524A' };
-      if (aqi <= 300) return { label: 'Sangat Tidak Sehat', color: '#8B4FA8' };
-      return { label: 'Berbahaya', color: '#7A2E2E' };
+    function aqiCategory(value){
+      if(value <= 50) return { label:'Baik',color:'#56b97c' };
+      if(value <= 100) return { label:'Sedang',color:'#c59e3e' };
+      if(value <= 150) return { label:'Tidak Sehat (Sensitif)',color:'#dc8e4d' };
+      if(value <= 200) return { label:'Tidak Sehat',color:'#d85e5e' };
+      if(value <= 300) return { label:'Sangat Tidak Sehat',color:'#9a68c8' };
+      return {label:'Berbahaya',color:'#a94448'};
     }
-
+    function setAqiMessage(msg,isError=false){
+      aqiContent.replaceChildren();
+      const p = document.createElement('p');
+      p.className = isError ? 'aqi-error' : 'aqi-loading';
+      p.textContent = msg;
+      aqiContent.append(p);
+      if(isError){
+        const retry = document.createElement('button');
+        retry.type = 'button'; retry.className = 'aqi-retry'; retry.textContent = 'Coba lagi';
+        retry.addEventListener('click',loadAqi); aqiContent.append(retry);
+      }
+    }
     async function loadAqi(){
-      if (AQI_TOKEN.includes('GANTI_DENGAN_TOKEN')) {
-        aqiContent.innerHTML = '<p class="aqi-error">Token AQICN belum dipasang. Lihat panduan setup.</p>';
-        return;
-      }
-      try {
-        const res = await fetch(`https://api.waqi.info/feed/geo:${AQI_LAT};${AQI_LON}/?token=${AQI_TOKEN}`);
-        const data = await res.json();
-        if (data.status !== 'ok') throw new Error('API error');
-
-        const aqi = data.data.aqi;
-        const station = data.data.city.name;
-        const updated = data.data.time.s;
-        const cat = aqiCategory(aqi);
-
+      setAqiMessage('Mengambil data kualitas udara...');
+      try{
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        let response;
+        try {
+          response = await fetch(`https://api.waqi.info/feed/geo:${AQI_LAT};${AQI_LON}/?token=${encodeURIComponent(AQI_TOKEN)}`, { signal:controller.signal });
+        } finally { clearTimeout(timeout); }
+        if(!response.ok) throw new Error('HTTP error');
+        const data = await response.json();
+        if(data.status !== 'ok' || !data.data) throw new Error('WAQI error');
+        const number = Number(data.data.aqi);
+        if(!Number.isFinite(number) || number < 0 || data.data.aqi === '-') throw new Error('AQI tidak tersedia');
+        const cat = aqiCategory(number);
+        aqiPanel.style.setProperty('--aqi-color',cat.color);
+        aqiDot.style.setProperty('--aqi-color',cat.color);
         aqiDot.classList.add('loaded');
-        aqiDot.style.setProperty('--aqi-color', cat.color);
-        aqiPanel.style.setProperty('--aqi-color', cat.color);
-
-        aqiContent.innerHTML = `
-          <p class="aqi-station">${station}</p>
-          <div class="aqi-main">
-            <span class="aqi-number">${aqi}</span>
-            <span class="aqi-category">${cat.label}</span>
-          </div>
-          <p class="aqi-updated">Diperbarui: ${updated}</p>
-        `;
-        aqiLoaded = true;
-      } catch (err) {
-        aqiContent.innerHTML = '<p class="aqi-error">Data kualitas udara sedang tidak tersedia.</p>';
+        const station = document.createElement('p'); station.className='aqi-station';
+        station.textContent = data.data.city?.name || 'Stasiun pemantauan terdekat';
+        const reading = document.createElement('div'); reading.className='aqi-reading';
+        const num = document.createElement('strong'); num.className='aqi-number'; num.textContent=String(number);
+        const category = document.createElement('span'); category.className='aqi-level'; category.textContent=cat.label;
+        reading.append(num,category);
+        const updated = document.createElement('p'); updated.className='aqi-update';
+        updated.textContent = `Pembaruan stasiun: ${data.data.time?.s || 'tidak diketahui'}`;
+        aqiContent.replaceChildren(station,reading,updated);
+        aqiLoaded=true;
+      }catch(e){
+        aqiLoaded=false;
+        setAqiMessage('Data kualitas udara belum bisa dimuat. Periksa jaringan atau coba lagi.',true);
       }
     }
-
-    aqiFab.addEventListener('click', () => {
-      aqiPanel.classList.toggle('show');
-      if (!aqiLoaded) loadAqi();
+    function setAqiOpen(open){
+      aqiPanel.hidden = !open;
+      aqiFab.setAttribute('aria-expanded',String(open));
+      if(open && !aqiLoaded) loadAqi();
+    }
+    aqiFab.addEventListener('click',()=>setAqiOpen(aqiPanel.hidden));
+    document.getElementById('aqiClose').addEventListener('click',()=>setAqiOpen(false));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape' && !aqiPanel.hidden){setAqiOpen(false);aqiFab.focus();}});
+    document.addEventListener('click',e=>{
+      if(!aqiPanel.hidden && !aqiPanel.contains(e.target) && !aqiFab.contains(e.target)) setAqiOpen(false);
     });
-    aqiClose.addEventListener('click', () => aqiPanel.classList.remove('show'));
   </script>
 </body>
 </html>
